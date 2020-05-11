@@ -1,0 +1,83 @@
+# depslib dependency file v1.0
+1589017811 source:d:\codes\space-shooter\main.cpp
+	"Texture.h"
+	"GamePlay.h"
+	"Sound.h"
+	"Animation.h"
+	"MainMenu.h"
+	<ctime>
+
+1589160976 source:d:\codes\space-shooter\gameplay.cpp
+	"GamePlay.h"
+	"Texture.h"
+	"Animation.h"
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+	"MainMenu.h"
+
+1589020274 d:\codes\space-shooter\gameplay.h
+	<list>
+	"MainMenu.h"
+
+1588958723 d:\codes\space-shooter\texture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<cstdlib>
+	<sstream>
+
+1589161045 source:d:\codes\space-shooter\texture.cpp
+	"Texture.h"
+	"GamePlay.h"
+
+1589023254 source:d:\codes\space-shooter\animation.cpp
+	"Animation.h"
+
+1588949434 d:\codes\space-shooter\animation.h
+	"Texture.h"
+	<vector>
+
+1589015244 source:d:\codes\space-shooter\enttity.cpp
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+
+1588953016 d:\codes\space-shooter\entity.h
+	<iostream>
+	<list>
+	<cmath>
+	"Animation.h"
+
+1588948000 d:\codes\space-shooter\asteroid.h
+	"Entity.h"
+
+1588948006 source:d:\codes\space-shooter\asteroid.cpp
+	"Asteroid.h"
+
+1588948743 d:\codes\space-shooter\objects.h
+	"Entity.h"
+
+1588986232 source:d:\codes\space-shooter\objects.cpp
+	"Objects.h"
+
+1588985786 source:d:\codes\space-shooter\resource.rc
+
+1589014935 source:d:\codes\space-shooter\sound.cpp
+	"Sound.h"
+
+1589014189 d:\codes\space-shooter\sound.h
+	<SDL_mixer.h>
+
+1589161141 source:d:\codes\space-shooter\mainmenu.cpp
+	"MainMenu.h"
+	"Texture.h"
+	"Objects.h"
+	"GamePlay.h"
+
+1589160245 d:\codes\space-shooter\mainmenu.h
+	<SDL.h>
+	<iostream>
+	<list>
+
