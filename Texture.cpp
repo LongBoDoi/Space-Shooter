@@ -46,7 +46,7 @@ void Texture::free(){
     mTexture = nullptr;
 }
 
-/////////////   class Word_Texture ////////////////////////
+/////////////   class Word_Texture    ////////////////////////
 
 void Word_Texture::Load_Font(std::string font_path, int size){
     gFont = TTF_OpenFont(font_path.c_str(), size);

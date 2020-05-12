@@ -17,7 +17,8 @@ extern animation sBullet, sExplosion, ship_explosion, sPlayer, sPlayer_dead, sPl
 
 extern Mix_Chunk *Fire_sound, *explo_sound, *bonus_sound;
 
-double DEGTORAD = 0.017453f;
+
+
 
 std::list<Entity*> entities;
 // All the objects will be stored in a list of Entity pointers
@@ -56,9 +57,10 @@ int Game_Play(){
     shoot_speed = 0.2;
     //// Set all the time delay to 0 and the shoot speed to 0.2
 
+    game_paused = false;
+
     SDL_Event e;
     bool game_over = false;
-    game_paused = false;
     while(!game_over){
         while(SDL_PollEvent( &e ) != 0){
             if(e.type == SDL_QUIT){
@@ -98,6 +100,7 @@ int Game_Play(){
             }
         }
 
+        /////////////////// Fire bullet //////////////////////////////
         if(p->alive == true){
 
         shoot_speed = (p->fast_shoot_enabled == true ? 1.2 : 0.2);
@@ -124,6 +127,7 @@ int Game_Play(){
         }
         }
 
+        ////////////////////// Fast shoot ///////////////////////////////
         if(p->fast_shoot_enabled == true){
             fast_shoot_time += delay_speed;
             // if the player has fast shoot then start the time delay for fast shooting
@@ -134,6 +138,7 @@ int Game_Play(){
             // When the delay is over reset to normal speed shooting
         }
 
+        //////////////// Player respawn /////////////////////
         if(p->alive == false){  // When the player just die
             p->vulnerable = false;
             // The player will not be vulnerable
@@ -265,13 +270,13 @@ int Game_Play(){
                 return Main_Menu();
             }
         }
+
+        //////////////// Draw ///////////////////////////
         for(auto i = entities.begin() ; i != entities.end() ; ){
             Entity *e = *i;
 
-            for(auto a:entities){
-                if(a->name == "ship_explosion"){
-                    if(a->anim.isEnd()) a->life = false;
-                }
+            if(e->name == "ship_explosion"){
+                if(e->anim.isEnd()) e->life = false;
             }
 
             if(e->name == "ship_explosion") e->anim.Update();
