@@ -6,9 +6,9 @@ This game is created based on the classic Space shooter game with new features
 
 --- VERSION 2.2 -----
 
-- HIDE MOUSE CURSOR WHILE PLAYING
+- Hide mouse cursor while playing
 
-- ADD MORE ROCKS
+- Add more rocks
 
 --- VERSION 2.1 -----
 
