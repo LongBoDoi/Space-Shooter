@@ -168,7 +168,7 @@ int Game_Play(){
             p->settings(sPlayer, Ship_Pos.x, Ship_Pos.y, 0, 15);
             p->vulnerable = true;
             // The space_ship only has the animation of respawning so this means
-            // When the animation of respawning is over we set the animation back
+            // when the animation of respawning is over we set the animation back
             // to normal and make it vulnerable
         }
 
@@ -185,7 +185,7 @@ int Game_Play(){
             // that explosions only happen once
         }
 
-        if (rand()%200==0)
+        if (rand() % 150 == 0)
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
