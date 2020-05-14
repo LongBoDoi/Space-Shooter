@@ -15,6 +15,8 @@ extern std::list<Entity*> entities;
 
 int Main_Menu(){
 
+    SDL_ShowCursor(SDL_ENABLE);
+
     std::list<Entity*> floating_rock;
 
     for(int i = 0 ; i < 10 ; i++){
@@ -63,6 +65,8 @@ int Main_Menu(){
 }
 
 int Pause_Menu(SDL_Event *e){
+    SDL_ShowCursor(SDL_ENABLE);
+
     Exit_but.Set_Position(567, 540);
     while(true){
         while(SDL_PollEvent(e) != 0){
@@ -77,18 +81,22 @@ int Pause_Menu(SDL_Event *e){
             Main_Menu_but.Handle_Event(e);
             Exit_but.Handle_Event(e);
             if(Continue_but.is_Clicked == true){
+                SDL_ShowCursor(SDL_DISABLE);
                 Continue_but.reset();
                 return 0;
             }
             if(Replay_but.is_Clicked == true){
+                SDL_ShowCursor(SDL_DISABLE);
                 Replay_but.reset();
                 return 1;
             }
             if(Main_Menu_but.is_Clicked == true){
+                SDL_ShowCursor(SDL_DISABLE);
                 Main_Menu_but.reset();
                 return 2;
             }
             if(Exit_but.is_Clicked == true){
+                SDL_ShowCursor(SDL_DISABLE);
                 Exit_but.reset();
                 return 3;
             }

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1589017811 source:d:\codes\space-shooter\main.cpp
+1589419522 source:d:\codes\space-shooter\main.cpp
 	"Texture.h"
 	"GamePlay.h"
 	"Sound.h"
@@ -7,7 +7,7 @@
 	"MainMenu.h"
 	<ctime>
 
-1589253740 source:d:\codes\space-shooter\gameplay.cpp
+1589419599 source:d:\codes\space-shooter\gameplay.cpp
 	"GamePlay.h"
 	"Texture.h"
 	"Animation.h"
@@ -70,7 +70,7 @@
 1589014189 d:\codes\space-shooter\sound.h
 	<SDL_mixer.h>
 
-1589161141 source:d:\codes\space-shooter\mainmenu.cpp
+1589419819 source:d:\codes\space-shooter\mainmenu.cpp
 	"MainMenu.h"
 	"Texture.h"
 	"Objects.h"

@@ -39,6 +39,8 @@ bool game_paused;
 
 int Game_Play(){
 
+    SDL_ShowCursor(SDL_DISABLE);
+
     Life.Set_Rect(0, 3 * 64, 212, 64);
     score_amount.Load_From_Number(0);
     //// When starting a game, the player will have 3 lifes and the score is 0
@@ -75,7 +77,7 @@ int Game_Play(){
                 // and also make sure the space_ship stay within the screen
             }
             if(e.type == SDL_KEYDOWN){
-                //if(e.key.keysym.sym == SDLK_q) game_over = true;
+                if(e.key.keysym.sym == SDLK_q) game_over = true;
                 if(e.key.keysym.sym == SDLK_ESCAPE){
                     game_paused = true;
                 }
@@ -242,6 +244,8 @@ int Game_Play(){
     }
 
     ////////////// Game over screen ////////////////////
+
+    SDL_ShowCursor(SDL_ENABLE);
 
     Exit_but.Set_Position(570, 540);
 
