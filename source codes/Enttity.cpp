@@ -39,7 +39,7 @@ void Entity::draw(){
 }
 
 bool is_Collide(Entity *a, Entity *b){
-    return (pow(b->x - a->x, 2) + pow(b->y - a->y, 2) < pow(a->R + b->R, 2));
+    return sqrt(pow(b->x - a->x, 2) + pow(b->y - a->y, 2)) < a->R + b->R;
 }
 
 void Handle_Collision(bool& game_over){

@@ -53,5 +53,5 @@ void Init_Animation(){
     sBullet_pack.t.Set_Size(50, 50);
     sBomb.t.Set_Size(50, 50);
     sFast_shoot.t.Set_Size(50, 50);
-    sRock = animation(Rock, 0, 0, 64, 64, 16, 0.2);
+    sRock = animation(Rock, 0, 0, 48, 48, 16, 0.2);
 }

@@ -32,24 +32,24 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Animation.cpp" />
-		<Unit filename="Animation.h" />
-		<Unit filename="Entity.h" />
-		<Unit filename="Enttity.cpp" />
-		<Unit filename="GamePlay.cpp" />
-		<Unit filename="GamePlay.h" />
-		<Unit filename="MainMenu.cpp" />
-		<Unit filename="MainMenu.h" />
-		<Unit filename="Objects.cpp" />
-		<Unit filename="Objects.h" />
-		<Unit filename="Sound.cpp" />
-		<Unit filename="Sound.h" />
-		<Unit filename="Texture.cpp" />
-		<Unit filename="Texture.h" />
-		<Unit filename="main.cpp" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="source codes/Animation.cpp" />
+		<Unit filename="source codes/Animation.h" />
+		<Unit filename="source codes/Entity.h" />
+		<Unit filename="source codes/Enttity.cpp" />
+		<Unit filename="source codes/GamePlay.cpp" />
+		<Unit filename="source codes/GamePlay.h" />
+		<Unit filename="source codes/MainMenu.cpp" />
+		<Unit filename="source codes/MainMenu.h" />
+		<Unit filename="source codes/Objects.cpp" />
+		<Unit filename="source codes/Objects.h" />
+		<Unit filename="source codes/Sound.cpp" />
+		<Unit filename="source codes/Sound.h" />
+		<Unit filename="source codes/Texture.cpp" />
+		<Unit filename="source codes/Texture.h" />
+		<Unit filename="source codes/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

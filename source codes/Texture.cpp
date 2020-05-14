@@ -168,7 +168,7 @@ void Init_Texture(){
     gBackGround.Load_From_File("image/background.jpg");
     gBackGround.Set_Size(1200, 800);
     Explosion.Load_From_File("image/explosions/rock-explosion.png");
-    Rock.Load_From_File("image/rock.png");
+    Rock.Load_From_File("image/Rocks.png");
     Bullet.Load_From_File("image/blue_bullet.png");
     Bullet_pack.Load_From_File("image/bullet_icon.png");
     Ship_Explosion.Load_From_File("image/explosions/ship-explosion.png");

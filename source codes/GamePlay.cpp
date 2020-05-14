@@ -114,7 +114,7 @@ int Game_Play(){
             bullet *bul = new bullet();
             switch(p->bullet_num){
                 case 1:
-                    bul->settings(sBullet, Ship_Pos.x + 7, Ship_Pos.y, 0, 10);
+                    bul->settings(sBullet, Ship_Pos.x + 7, Ship_Pos.y, 0, 7);
                     break;
                 case 2:
                     bul->settings(sBullet, Ship_Pos.x - 3, Ship_Pos.y, 0, 17);
@@ -185,7 +185,7 @@ int Game_Play(){
             // that explosions only happen once
         }
 
-        if (rand() % 150 == 0)
+        if (rand() % 175 == 0)
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
