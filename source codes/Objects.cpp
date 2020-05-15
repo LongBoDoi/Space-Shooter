@@ -4,11 +4,10 @@
 
 asteroid::asteroid(){
     dx = rand() % 5 - 2;
-    dy = rand() % 5 + 1;
+    dy = rand() % 5 + 4;
     dy /= 4.0;
-    if(dy < 1) dy = 1;
     // Divide dy for 4.0 so that the asteroids would not move too fast
-    // The minimum speed is 1 however
+    // The speed can be 1, 1.25, 1.5, 1.75, 2
     name = "asteroid";
 }
 
