@@ -77,7 +77,7 @@ int Game_Play(){
                 // and also make sure the space_ship stay within the screen
             }
             if(e.type == SDL_KEYDOWN){
-                if(e.key.keysym.sym == SDLK_q) game_over = true;
+                //if(e.key.keysym.sym == SDLK_q) game_over = true;
                 if(e.key.keysym.sym == SDLK_ESCAPE){
                     game_paused = true;
                 }
