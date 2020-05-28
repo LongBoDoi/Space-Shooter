@@ -4,6 +4,10 @@
 
 This game is created based on the classic Space shooter game with new features
 
+--- VERSION 2.3 (latest) ---
+
+- Add high scores
+
 --- VERSION 2.2 -----
 
 - Hide mouse cursor while playing
@@ -11,8 +15,6 @@ This game is created based on the classic Space shooter game with new features
 - Add more rocks
 
 --- VERSION 2.1 -----
-
-New Updates:
 
 - Add Pause Menu
 
