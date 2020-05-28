@@ -243,6 +243,8 @@ int Game_Play(){
         SDL_RenderPresent(gRenderer);
     }
 
+    Update_High_Score(p->scores);
+
     ////////////// Game over screen ////////////////////
 
     SDL_ShowCursor(SDL_ENABLE);

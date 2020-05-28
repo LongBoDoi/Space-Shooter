@@ -7,6 +7,7 @@
 #include<iostream>
 #include<cstdlib>
 #include<sstream>
+#include<vector>
 
 class Texture{
     SDL_Rect on_Screen;

@@ -7,7 +7,7 @@ extern SDL_Renderer* gRenderer;
 Texture Space_Ship, gBackGround, Explosion, Rock, Bullet,
         Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background, Game_Logo;
 Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but, Start_but,
-             Main_Menu_but, Continue_but;
+             Main_Menu_but, Continue_but, High_Score_but;
 
 void Texture::Load_From_File(std::string path){
     free();
@@ -214,6 +214,10 @@ void Init_Texture(){
     Continue_but.Load_From_Text("CONTINUE");
     Continue_but.Set_Color(255, 255, 255, 255);
     Continue_but.Set_Position(515, 330);
+    High_Score_but.Load_Font("times-new-roman.ttf", 40);
+    High_Score_but.Load_From_Text("HIGH SCORES");
+    High_Score_but.Set_Color(255, 255, 255, 255);
+    High_Score_but.Set_Position(463, 470);
 }
 
 void Clean_Up(){
@@ -243,6 +247,7 @@ void Clean_Up(){
     Start_but.free();
     Main_Menu_but.free();
     Continue_but.free();
+    High_Score_but.free();
 
     SDL_Quit();
     IMG_Quit();
