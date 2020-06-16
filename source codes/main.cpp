@@ -9,7 +9,7 @@ using namespace std;
 
 SDL_Window* gWindow = SDL_CreateWindow("Space-Shooter",
                                        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                       1200, 800, SDL_WINDOW_SHOWN);
+                                       1200, 800, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 SDL_Renderer* gRenderer = SDL_CreateRenderer(gWindow, -1,
                                              SDL_RENDERER_ACCELERATED);
 

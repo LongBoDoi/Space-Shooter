@@ -6,6 +6,8 @@ This game is created based on the classic Space shooter game with new features
 
 --- VERSION 2.3 (latest) ---
 
+- Limit FPS to 120
+
 - Add high scores
 
 --- VERSION 2.2 -----

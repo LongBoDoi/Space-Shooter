@@ -5,7 +5,7 @@
 asteroid::asteroid(){
     dx = rand() % 5 - 2;
     dy = rand() % 5 + 4;
-    dy /= 4.0;
+    dy /= 2.0;
     // Divide dy for 4.0 so that the asteroids would not move too fast
     // The speed can be 1, 1.25, 1.5, 1.75, 2
     name = "asteroid";
@@ -29,7 +29,7 @@ bullet::bullet(){
 }
 
 void bullet::update(){
-    y -= 5;
+    y -= 9;
     if(y < 0) life = false;
     // if the bullet flies above the screen it will be destroyed
 }
@@ -58,7 +58,7 @@ package::package(std::string name_){
 }
 
 void package::update(){
-    y += 2;
+    y += 4;
     if(y > 800) life = false;
     // if the package falls below the screen it will be destroyed
 }

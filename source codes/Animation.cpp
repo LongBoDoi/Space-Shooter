@@ -42,8 +42,8 @@ bool animation::isEnd(){
 
 void Init_Animation(){
     sBullet = animation(Bullet, 0, 0, 32, 64, 16, 0.8);
-    sExplosion = animation(Explosion, 0, 0, 256, 256, 48, 0.2);
-    ship_explosion = animation(Ship_Explosion, 0, 0, 192, 192, 64, 0.2);
+    sExplosion = animation(Explosion, 0, 0, 256, 256, 48, 0.3);
+    ship_explosion = animation(Ship_Explosion, 0, 0, 192, 192, 64, 0.35);
     sPlayer = animation(Space_Ship, 39, 0, 39, 39, 1, 0);
     sPlayer_dead = animation(Space_Ship, 0, 0, 39, 39, 1, 0);
     sPlayer_respawn = animation(Space_Ship, 78, 0, 39, 39, 29, 0.05);

@@ -108,7 +108,7 @@ int Game_Play(){
         shoot_speed = (p->fast_shoot_enabled == true ? 1.2 : 0.2);
         // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
         shoot_delay += shoot_speed;
-        if(shoot_delay > 25){
+        if(shoot_delay > 17){
             shoot_delay = 0;
             // reset the shoot delay time to 0 and create a new bullet;
             bullet *bul = new bullet();
@@ -133,7 +133,7 @@ int Game_Play(){
         if(p->fast_shoot_enabled == true){
             fast_shoot_time += delay_speed;
             // if the player has fast shoot then start the time delay for fast shooting
-            if(fast_shoot_time > 250){
+            if(fast_shoot_time > 200){
                 fast_shoot_time = 0;
                 p->fast_shoot_enabled = false;
             }
@@ -185,7 +185,7 @@ int Game_Play(){
             // that explosions only happen once
         }
 
-        if (rand() % 175 == 0)
+        if (rand() % 150 == 0)
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
@@ -193,21 +193,21 @@ int Game_Play(){
         }
         // Randomly create a new asteroid
 
-        if (rand() % 6000 == 0){
+        if (rand() % 5000 == 0){
             package *bp = new package("bullet_pack");
             bp->settings(sBullet_pack, rand() % 1150, 0, 0, 35);
             entities.push_back(bp);
         }
         // Randomly create a new bullet package
 
-        if (rand() % 7000 == 0){
+        if (rand() % 5500 == 0){
             package *b = new package("bomb");
             b->settings(sBomb, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
         }
         // Randomly create a new bomb package
 
-        if (rand() % 6000 == 0){
+        if (rand() % 5000 == 0){
             package *b = new package("fast_shoot");
             b->settings(sFast_shoot, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
@@ -241,6 +241,8 @@ int Game_Play(){
         score_amount.render();
 
         SDL_RenderPresent(gRenderer);
+
+        SDL_Delay(7);
     }
 
     Update_High_Score(p->scores);
