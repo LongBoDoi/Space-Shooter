@@ -46,7 +46,7 @@ bool is_Collide(Entity *a, Entity *b){
     return sqrt(pow(b->x - a->x, 2) + pow(b->y - a->y, 2)) < a->R + b->R;
 }
 
-void Handle_Collision(bool& game_over){
+void Handle_Collision(bool& game_over, bool duel_play){
     for(auto a:entities){
         for(auto b:entities){
             if((a->name == "asteroid" || a->name == "asteroid_small") && b->name == "bullet"){
@@ -149,7 +149,8 @@ void Handle_Collision(bool& game_over){
                 Play_Sound(ship_explo, 3);
             }
         }
-        if((a->name == "asteroid" || a->name == "asteroid_small") && p2->vulnerable == true && p2_dead == false){
+        if((a->name == "asteroid" || a->name == "asteroid_small") &&
+            p2->vulnerable == true && p2_dead == false && duel_play == true){
             if(is_Collide(a, p2)){
                 final_score_2 = p2->scores;
                 // if the player and an asteroid collide
@@ -212,7 +213,8 @@ void Handle_Collision(bool& game_over){
                 // set the animation of bullet according to the number of bullet which has just been updated
             }
         }
-        if(a->name == "bullet_pack" && p2->alive == true && p2_dead == false){
+        if(a->name == "bullet_pack" && p2->alive == true && p2_dead == false
+           && duel_play == true){
             if(is_Collide(a, p2)){
                 Play_Sound(bonus_sound, 3);
 
@@ -246,7 +248,7 @@ void Handle_Collision(bool& game_over){
                 score_amount.Load_From_Number(p->scores);
                 // add 50 to the player score and update score_amount
                 for(auto a:entities){
-                    if(a->name == "asteroid"){
+                    if(a->name == "asteroid" || a->name == "asteroid_small"){
                         a->life = false;
 
                         Entity *e = new Entity();
@@ -264,7 +266,8 @@ void Handle_Collision(bool& game_over){
                 // to the player score
             }
         }
-        if(a->name == "bomb" && p2->alive == true && p2_dead == false){
+        if(a->name == "bomb" && p2->alive == true && p2_dead == false
+           && duel_play == true){
             if(is_Collide(a, p2)){
                 Play_Sound(bonus_sound, 3);
                 // if the player and the bomb package collide
@@ -274,7 +277,7 @@ void Handle_Collision(bool& game_over){
                 score_amount_2.Load_From_Number(p2->scores);
                 // add 50 to the player score and update score_amount
                 for(auto a:entities){
-                    if(a->name == "asteroid"){
+                    if(a->name == "asteroid" || a->name == "asteroid_small"){
                         a->life = false;
 
                         Entity *e = new Entity();
@@ -308,7 +311,8 @@ void Handle_Collision(bool& game_over){
                 // add score and update
             }
         }
-        if(a->name == "fast_shoot" && p2->alive == true && p2_dead == false){
+        if(a->name == "fast_shoot" && p2->alive == true && p2_dead == false
+           && duel_play == true){
             if(is_Collide(a, p2)){
                 Play_Sound(bonus_sound, 3);
                 // if the player and the fast_shoot package collide

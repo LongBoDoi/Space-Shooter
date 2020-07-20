@@ -11,6 +11,8 @@ using namespace std;
 
 int Main_Menu();
 
+int Play_Mode_Menu();
+
 int Pause_Menu(SDL_Event *e);
 
 int Display_High_Scores();

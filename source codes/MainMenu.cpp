@@ -9,7 +9,7 @@ extern animation sRock;
 
 extern Texture Game_Logo, gBackGround, Life, Score_background;
 extern Word_Texture Start_but, Exit_but, Replay_but, Main_Menu_but, Continue_but, High_Score_but,
-        score_amount, Score;
+        score_amount, Score, Single_Play, Duel_Play;
 
 extern std::list<Entity*> entities;
 
@@ -40,7 +40,7 @@ int Main_Menu(){
             if(Start_but.is_Clicked == true){
                 floating_rock.clear();
                 Start_but.reset();
-                return Game_Play();
+                return Play_Mode_Menu();
             }
             if(Exit_but.is_Clicked == true){
                 floating_rock.clear();
@@ -67,6 +67,39 @@ int Main_Menu(){
         Start_but.render();
         Exit_but.render();
         High_Score_but.render();
+        SDL_RenderPresent(gRenderer);
+    }
+}
+
+int Play_Mode_Menu(){
+    SDL_ShowCursor(SDL_ENABLE);
+
+    SDL_Event e;
+    while(true){
+        while(SDL_PollEvent( &e ) != 0){
+            if(e.type == SDL_QUIT){
+                return -1;
+            }
+            Single_Play.Handle_Event( &e );
+            Duel_Play.Handle_Event( &e );
+            if(Single_Play.is_Clicked == true){
+                Single_Play.reset();
+                return Game_Play(false);
+            }
+            if(Duel_Play.is_Clicked == true){
+                Duel_Play.reset();
+                return Game_Play(true);
+            }
+            if(e.type == SDL_KEYDOWN){
+                if(e.key.keysym.sym == SDLK_ESCAPE) return Main_Menu();
+            }
+        }
+        SDL_RenderClear(gRenderer);\
+
+        gBackGround.render();
+        Game_Logo.render();
+        Single_Play.render();
+        Duel_Play.render();
         SDL_RenderPresent(gRenderer);
     }
 }

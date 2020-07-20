@@ -318,3 +318,83 @@
 	"Texture.h"
 	"GamePlay.h"
 
+1592215690 source:e:\codes\space-shooter\resource.rc
+
+1595253103 source:e:\codes\space-shooter\source codes\animation.cpp
+	"Animation.h"
+
+1595248096 e:\codes\space-shooter\source codes\animation.h
+	"Texture.h"
+	<vector>
+
+1595248590 e:\codes\space-shooter\source codes\texture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<cstdlib>
+	<sstream>
+	<vector>
+
+1595266414 source:e:\codes\space-shooter\source codes\enttity.cpp
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+
+1595266414 e:\codes\space-shooter\source codes\entity.h
+	<iostream>
+	<list>
+	<cmath>
+	"Animation.h"
+	"Entity.h"
+
+1595253544 e:\codes\space-shooter\source codes\objects.h
+	"Entity.h"
+
+1595248123 e:\codes\space-shooter\source codes\sound.h
+	<SDL_mixer.h>
+
+1595267764 source:e:\codes\space-shooter\source codes\gameplay.cpp
+	"GamePlay.h"
+	"Texture.h"
+	"Animation.h"
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+	"MainMenu.h"
+
+1595265913 e:\codes\space-shooter\source codes\gameplay.h
+	<list>
+	"MainMenu.h"
+
+1595267090 e:\codes\space-shooter\source codes\mainmenu.h
+	<SDL.h>
+	<iostream>
+	<list>
+	<fstream>
+	<algorithm>
+
+1595248637 source:e:\codes\space-shooter\source codes\main.cpp
+	"Texture.h"
+	"GamePlay.h"
+	"Sound.h"
+	"Animation.h"
+	"MainMenu.h"
+	<ctime>
+
+1595267438 source:e:\codes\space-shooter\source codes\mainmenu.cpp
+	"MainMenu.h"
+	"Texture.h"
+	"Objects.h"
+	"GamePlay.h"
+
+1595253544 source:e:\codes\space-shooter\source codes\objects.cpp
+	"Objects.h"
+
+1595248065 source:e:\codes\space-shooter\source codes\sound.cpp
+	"Sound.h"
+
+1595267482 source:e:\codes\space-shooter\source codes\texture.cpp
+	"Texture.h"
+	"GamePlay.h"
+

@@ -42,7 +42,7 @@ bool p1_dead, p2_dead;
 
 int final_score_1, final_score_2;
 
-int Game_Play(){
+int Game_Play(bool duel_play){
 
     SDL_ShowCursor(SDL_DISABLE);
 
@@ -55,7 +55,8 @@ int Game_Play(){
     p->settings(sPlayer, 200, 200, 0, 15);
     entities.push_back(p);
     p2 = new player();
-    p2->settings(sPlayer, 200, 200, 0, 15);
+    if(duel_play == true) p2->settings(sPlayer, 200, 200, 0, 15);
+    else p2->settings(sPlayer_dead, 200, 200, 0, 15);
     entities.push_back(p2);
     //// Create a new player with the class player
 
@@ -130,7 +131,7 @@ int Game_Play(){
             int selection = Pause_Menu(&e);
             if(selection == 1){
                 entities.clear();
-                return Game_Play();
+                return Game_Play(duel_play);
             }
             if(selection == 2){
                 entities.clear();
@@ -173,7 +174,7 @@ int Game_Play(){
             Play_Sound(Fire_sound, 0);
         }
         }
-        if(p2->alive == true && p2_dead == false){
+        if(p2->alive == true && p2_dead == false && duel_play == true){
 
         shoot_speed_2 = (p2->fast_shoot_enabled == true ? 1.2 : 0.2);
         // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
@@ -283,7 +284,7 @@ int Game_Play(){
             // to normal and make it vulnerable
         }
 
-        Handle_Collision(game_over);
+        Handle_Collision(game_over, duel_play);
 
         if(p1_dead == false){
             p->Get_Position(Ship_Pos.x, Ship_Pos.y);
@@ -303,7 +304,7 @@ int Game_Play(){
             // that explosions only happen once
         }
 
-        if (rand() % 150 == 0)
+        if (rand() % ((duel_play == true) ? 150 : 200) == 0)
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
@@ -311,21 +312,21 @@ int Game_Play(){
         }
         // Randomly create a new asteroid
 
-        if (rand() % 4000 == 0){
+        if (rand() % ((duel_play == true) ? 2000 : 4000) == 0){
             package *bp = new package("bullet_pack");
             bp->settings(sBullet_pack, rand() % 1150, 0, 0, 35);
             entities.push_back(bp);
         }
         // Randomly create a new bullet package
 
-        if (rand() % 5000 == 0){
+        if (rand() % ((duel_play == true) ? 3000 : 5000) == 0){
             package *b = new package("bomb");
             b->settings(sBomb, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
         }
         // Randomly create a new bomb package
 
-        if (rand() % 3000 == 0){
+        if (rand() % ((duel_play == true) ? 1000 : 3000) == 0){
             package *b = new package("fast_shoot");
             b->settings(sFast_shoot, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
@@ -353,16 +354,18 @@ int Game_Play(){
             i->draw();
         }
         if(p->alive == true) p1_id.render();
-        if(p2->alive == true) p2_id.render();
+        if(p2->alive == true && duel_play == true) p2_id.render();
 
         Life.render();
-        Life_2.render();
         Score_background.render();
-        Score_background_2.render();
         Score.render();
-        Score_2.render();
         score_amount.render();
-        score_amount_2.render();
+        if(duel_play == true){
+            Life_2.render();
+            Score_background_2.render();
+            Score_2.render();
+            score_amount_2.render();
+        }
 
         SDL_RenderPresent(gRenderer);
     }
@@ -388,7 +391,7 @@ int Game_Play(){
             if(Replay_but.is_Clicked == true){
                 Replay_but.reset();
                 entities.clear();
-                return Game_Play();
+                return Game_Play(duel_play);
             }
             if(Exit_but.is_Clicked == true){
                 Exit_but.reset();
@@ -427,13 +430,15 @@ int Game_Play(){
         }
 
         Life.render();
-        Life_2.render();
         Score_background.render();
-        Score_background_2.render();
         Score.render();
-        Score_2.render();
         score_amount.render();
-        score_amount_2.render();
+        if(duel_play == true){
+            Life_2.render();
+            Score_background_2.render();
+            Score_2.render();
+            score_amount_2.render();
+        }
         Game_Over.render();
         Replay_but.render();
         Main_Menu_but.render();
