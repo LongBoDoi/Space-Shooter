@@ -4,7 +4,15 @@
 
 This game is created based on the classic Space shooter game with new features
 
---- VERSION 2.3 (latest) ---
+--- VERSION 2.4 (latest) ---
+
+- Fix high speed problem on some computers.
+
+- Add a new feature to the game: Small rocks.
+
+- Add 2 players mode.
+
+--- VERSION 2.3 ---
 
 - Limit FPS to 120
 
