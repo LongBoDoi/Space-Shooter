@@ -3,11 +3,22 @@
 
 #include "Entity.h"
 
-class asteroid: public Entity{
+class asteroid: public Entity
+{
     // Asteroid is one of the objects that comes in large quantities so
     // we link this class with the class Entity
     public:
         asteroid();
+
+        void update();
+};
+
+class asteroid_small: public Entity
+{
+    // Asteroid is one of the objects that comes in large quantities so
+    // we link this class with the class Entity
+    public:
+        asteroid_small();
 
         void update();
 };
@@ -17,6 +28,13 @@ class asteroid: public Entity{
 class bullet: public Entity{
 public:
     bullet();
+
+    void update();
+};
+
+class bullet_2: public Entity{
+public:
+    bullet_2();
 
     void update();
 };

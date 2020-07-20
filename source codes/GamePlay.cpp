@@ -9,11 +9,13 @@
 extern SDL_Renderer* gRenderer;
 
 extern Texture Space_Ship, gBackGround, Explosion, Rock, Bullet,
-                Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background;
-extern Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but, Main_Menu_but;
+                Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background,
+                Life_2, Score_background_2;
+extern Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but,
+        Main_Menu_but, Score_2, score_amount_2, p1_id, p2_id;
 
 extern animation sBullet, sExplosion, ship_explosion, sPlayer, sPlayer_dead, sPlayer_respawn,
-            sBullet_pack, sBomb, sFast_shoot, sRock;
+            sBullet_pack, sBomb, sFast_shoot, sRock, sBullet_2;
 
 extern Mix_Chunk *Fire_sound, *explo_sound, *bonus_sound;
 
@@ -23,67 +25,105 @@ extern Mix_Chunk *Fire_sound, *explo_sound, *bonus_sound;
 std::list<Entity*> entities;
 // All the objects will be stored in a list of Entity pointers
 
-player *p;
+player *p, *p2;
 
-SDL_Point Ship_Pos;
+SDL_Point Ship_Pos, Ship_Pos_2;
 //// Ship_Pos is used to save the position of the player (space_ship)
 
-float shoot_delay, shoot_speed;
-float fast_shoot_time;
-float respawn_time;
+float shoot_delay, shoot_delay_2, shoot_speed, shoot_speed_2;
+float fast_shoot_time, fast_shoot_time_2;
+float respawn_time, respawn_time_2;
 float delay_speed = 0.2;
 //// These are the variables for getting delay to shoot, fast_shoot and respawn
 
 bool game_paused;
+bool p1_dead, p2_dead;
 // Check if the player pause the game
+
+int final_score_1, final_score_2;
 
 int Game_Play(){
 
     SDL_ShowCursor(SDL_DISABLE);
 
     Life.Set_Rect(0, 3 * 64, 212, 64);
+    Life_2.Set_Rect(0, 3*64, 212, 64);
     score_amount.Load_From_Number(0);
     //// When starting a game, the player will have 3 lifes and the score is 0
 
     p = new player();
     p->settings(sPlayer, 200, 200, 0, 15);
     entities.push_back(p);
+    p2 = new player();
+    p2->settings(sPlayer, 200, 200, 0, 15);
+    entities.push_back(p2);
     //// Create a new player with the class player
 
+    final_score_1 = final_score_2 = 0;
+
     Ship_Pos = {500, 500};
+    Ship_Pos_2 = {1000, 500};
     //// The starting position is 500 and 500
 
-    shoot_delay = 0;
-    fast_shoot_time = 0;
-    respawn_time = 0;
-    shoot_speed = 0.2;
+    shoot_delay = shoot_delay_2 = 0;
+    fast_shoot_time = fast_shoot_time_2 = 0;
+    respawn_time = respawn_time_2 = 0;
+    shoot_speed = shoot_speed_2 = 0.2;
     //// Set all the time delay to 0 and the shoot speed to 0.2
 
     game_paused = false;
 
     SDL_Event e;
+    const Uint8* currentKeyState = SDL_GetKeyboardState( NULL );
+    const Uint8* currentKeyState_2 = SDL_GetKeyboardState( NULL );
     bool game_over = false;
+    p1_dead = p2_dead = false;
+    int move_speed = 6;
     while(!game_over){
+        if( currentKeyState[ SDL_SCANCODE_W ] ){
+            Ship_Pos.y -= move_speed;
+            if(Ship_Pos.y < 0) Ship_Pos.y = 0;
+        }
+        if( currentKeyState[ SDL_SCANCODE_A ] ){
+            Ship_Pos.x -= move_speed;
+            if(Ship_Pos.x < 0) Ship_Pos.x = 0;
+        }
+        if( currentKeyState[ SDL_SCANCODE_S ] ){
+            Ship_Pos.y += move_speed;
+            if(Ship_Pos.y > 750) Ship_Pos.y = 750;
+        }
+        if( currentKeyState[ SDL_SCANCODE_D ] ){
+            Ship_Pos.x += move_speed;
+            if(Ship_Pos.x > 1150) Ship_Pos.x = 1150;
+        }
+        if( currentKeyState_2[ SDL_SCANCODE_UP ] ){
+            Ship_Pos_2.y -= move_speed;
+            if(Ship_Pos_2.y < 0) Ship_Pos_2.y = 0;
+        }
+        if( currentKeyState_2[ SDL_SCANCODE_DOWN ] ){
+            Ship_Pos_2.y += move_speed;
+            if(Ship_Pos_2.y > 750) Ship_Pos_2.y = 750;
+        }
+        if( currentKeyState_2[ SDL_SCANCODE_LEFT ] ){
+            Ship_Pos_2.x -= move_speed;
+            if(Ship_Pos_2.x < 0) Ship_Pos_2.x = 0;
+        }
+        if( currentKeyState_2[ SDL_SCANCODE_RIGHT ] ){
+            Ship_Pos_2.x += move_speed;
+            if(Ship_Pos_2.x > 1150) Ship_Pos_2.x = 1150;
+        }
+        if( currentKeyState_2[ SDL_SCANCODE_ESCAPE ] ){
+            //if(e.key.keysym.sym == SDLK_q) game_over = true;
+            game_paused = true;
+        }
         while(SDL_PollEvent( &e ) != 0){
             if(e.type == SDL_QUIT){
                 entities.clear();
                 return 0;
             }
-            if(e.type == SDL_MOUSEMOTION){
-                SDL_GetMouseState(&Ship_Pos.x, &Ship_Pos.y);
-                if(Ship_Pos.x > 1160) Ship_Pos.x = 1160;
-                if(Ship_Pos.y > 760) Ship_Pos.y = 760;
-                // We get the position of the space_ship using the motion of the mouse
-                // and also make sure the space_ship stay within the screen
-            }
-            if(e.type == SDL_KEYDOWN){
-                //if(e.key.keysym.sym == SDLK_q) game_over = true;
-                if(e.key.keysym.sym == SDLK_ESCAPE){
-                    game_paused = true;
-                }
-            }
         }
 
+        // ******************************************************************** //
         //// Check game pause /////
         if(game_paused == true){
             game_paused = false;
@@ -102,13 +142,18 @@ int Game_Play(){
             }
         }
 
+        // *************************************************************** //
+        // CHECK GAME OVER //
+        if(p1_dead == true && p2_dead == true) game_over = true;
+
+        // **************************************************************** //
         /////////////////// Fire bullet //////////////////////////////
-        if(p->alive == true){
+        if(p->alive == true && p1_dead == false){
 
         shoot_speed = (p->fast_shoot_enabled == true ? 1.2 : 0.2);
         // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
         shoot_delay += shoot_speed;
-        if(shoot_delay > 17){
+        if(shoot_delay > 8){
             shoot_delay = 0;
             // reset the shoot delay time to 0 and create a new bullet;
             bullet *bul = new bullet();
@@ -128,9 +173,35 @@ int Game_Play(){
             Play_Sound(Fire_sound, 0);
         }
         }
+        if(p2->alive == true && p2_dead == false){
 
+        shoot_speed_2 = (p2->fast_shoot_enabled == true ? 1.2 : 0.2);
+        // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
+        shoot_delay_2 += shoot_speed_2;
+        if(shoot_delay_2 > 8){
+            shoot_delay_2 = 0;
+            // reset the shoot delay time to 0 and create a new bullet;
+            bullet_2 *bul = new bullet_2();
+            switch(p2->bullet_num){
+                case 1:
+                    bul->settings(sBullet_2, Ship_Pos_2.x + 7, Ship_Pos_2.y, 0, 7);
+                    break;
+                case 2:
+                    bul->settings(sBullet_2, Ship_Pos_2.x - 3, Ship_Pos_2.y, 0, 17);
+                    break;
+                case 3:
+                    bul->settings(sBullet_2, (float)Ship_Pos_2.x - 12.2, Ship_Pos_2.y, 0, 30);
+                    break;
+            }
+            // Check the amount of bullets that the player shoots each time
+            entities.push_back(bul);
+            Play_Sound(Fire_sound, 0);
+        }
+        }
+
+        // ******************************************************************* //
         ////////////////////// Fast shoot ///////////////////////////////
-        if(p->fast_shoot_enabled == true){
+        if(p->fast_shoot_enabled == true && p1_dead == false){
             fast_shoot_time += delay_speed;
             // if the player has fast shoot then start the time delay for fast shooting
             if(fast_shoot_time > 200){
@@ -139,14 +210,24 @@ int Game_Play(){
             }
             // When the delay is over reset to normal speed shooting
         }
+        if(p2->fast_shoot_enabled == true && p2_dead == false){
+            fast_shoot_time_2 += delay_speed;
+            // if the player has fast shoot then start the time delay for fast shooting
+            if(fast_shoot_time_2 > 200){
+                fast_shoot_time_2 = 0;
+                p2->fast_shoot_enabled = false;
+            }
+            // When the delay is over reset to normal speed shooting
+        }
 
+        // ******************************************************************** //
         //////////////// Player respawn /////////////////////
-        if(p->alive == false){  // When the player just die
+        if(p->alive == false && p1_dead == false){  // When the player just die
             p->vulnerable = false;
             // The player will not be vulnerable
             respawn_time += delay_speed;
             // Then start the time delay for respawning
-            if(respawn_time > 100){
+            if(respawn_time > 50){
                 respawn_time = 0;
                 p->settings(sPlayer_respawn, Ship_Pos.x, Ship_Pos.y, 0, 15);
                 p->alive = true;
@@ -163,10 +244,40 @@ int Game_Play(){
                 }
             }
         }
+        if(p2->alive == false && p2_dead == false){  // When the player just die
+            p2->vulnerable = false;
+            // The player will not be vulnerable
+            respawn_time_2 += delay_speed;
+            // Then start the time delay for respawning
+            if(respawn_time_2 > 50){
+                respawn_time_2 = 0;
+                p2->settings(sPlayer_respawn, Ship_Pos_2.x, Ship_Pos_2.y, 0, 15);
+                p2->alive = true;
+                // if the player respawns set the animation of respawning
+                // and set him back to alive
+            }
+            else{
+                if(p2->revive == true){
+                    p2->revive = false;
+                    p2->settings(sPlayer_dead, Ship_Pos_2.x, Ship_Pos_2.y, 0, 15);
+                    // if the player has not respawned then set the animation to death
+                    // We use the variable p->revive to make sure the function settings
+                    // above happens just once
+                }
+            }
+        }
 
-        if(p->anim.isEnd() == true){
+        // ******************************************************************* //
+        if(p->anim.isEnd() == true && p1_dead == false){
             p->settings(sPlayer, Ship_Pos.x, Ship_Pos.y, 0, 15);
             p->vulnerable = true;
+            // The space_ship only has the animation of respawning so this means
+            // when the animation of respawning is over we set the animation back
+            // to normal and make it vulnerable
+        }
+        if(p2->anim.isEnd() == true && p2_dead == false){
+            p2->settings(sPlayer, Ship_Pos_2.x, Ship_Pos_2.y, 0, 15);
+            p2->vulnerable = true;
             // The space_ship only has the animation of respawning so this means
             // when the animation of respawning is over we set the animation back
             // to normal and make it vulnerable
@@ -174,7 +285,14 @@ int Game_Play(){
 
         Handle_Collision(game_over);
 
-        p->Get_Position(Ship_Pos.x, Ship_Pos.y);
+        if(p1_dead == false){
+            p->Get_Position(Ship_Pos.x, Ship_Pos.y);
+            p1_id.Set_Position(Ship_Pos.x + 6, Ship_Pos.y + 35);
+        }
+        if(p2_dead == false){
+            p2->Get_Position(Ship_Pos_2.x, Ship_Pos_2.y);
+            p2_id.Set_Position(Ship_Pos_2.x + 6, Ship_Pos_2.y + 35);
+        }
         // Set the position of the player according to the variable Ship_Pos
 
         for(auto a:entities){
@@ -193,21 +311,21 @@ int Game_Play(){
         }
         // Randomly create a new asteroid
 
-        if (rand() % 5000 == 0){
+        if (rand() % 4000 == 0){
             package *bp = new package("bullet_pack");
             bp->settings(sBullet_pack, rand() % 1150, 0, 0, 35);
             entities.push_back(bp);
         }
         // Randomly create a new bullet package
 
-        if (rand() % 5500 == 0){
+        if (rand() % 5000 == 0){
             package *b = new package("bomb");
             b->settings(sBomb, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
         }
         // Randomly create a new bomb package
 
-        if (rand() % 5000 == 0){
+        if (rand() % 3000 == 0){
             package *b = new package("fast_shoot");
             b->settings(sFast_shoot, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
@@ -234,18 +352,23 @@ int Game_Play(){
         for(auto i:entities){
             i->draw();
         }
+        if(p->alive == true) p1_id.render();
+        if(p2->alive == true) p2_id.render();
 
         Life.render();
+        Life_2.render();
         Score_background.render();
+        Score_background_2.render();
         Score.render();
+        Score_2.render();
         score_amount.render();
+        score_amount_2.render();
 
         SDL_RenderPresent(gRenderer);
-
-        SDL_Delay(7);
     }
 
-    Update_High_Score(p->scores);
+    Update_High_Score(final_score_1);
+    Update_High_Score(final_score_2);
 
     ////////////// Game over screen ////////////////////
 
@@ -304,9 +427,13 @@ int Game_Play(){
         }
 
         Life.render();
+        Life_2.render();
         Score_background.render();
+        Score_background_2.render();
         Score.render();
+        Score_2.render();
         score_amount.render();
+        score_amount_2.render();
         Game_Over.render();
         Replay_but.render();
         Main_Menu_but.render();

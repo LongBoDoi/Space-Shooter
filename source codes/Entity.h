@@ -5,8 +5,9 @@
 #include <list>
 #include <cmath>
 #include "Animation.h"
+#include "Entity.h"
 
-class Entity{
+class Entity {
     // This class is used to store different objects which come in large quantities
     // like rocks, bullets, packages, ....
     public:

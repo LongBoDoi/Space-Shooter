@@ -4,10 +4,12 @@
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
-Texture Space_Ship, gBackGround, Explosion, Rock, Bullet,
-        Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background, Game_Logo;
+Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet,
+        Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background, Game_Logo,
+        Life_2, Score_background_2;
 Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but, Start_but,
-             Main_Menu_but, Continue_but, High_Score_but;
+             Main_Menu_but, Continue_but, High_Score_but,
+             Score_2, score_amount_2, p1_id, p2_id;
 
 void Texture::Load_From_File(std::string path){
     free();
@@ -167,8 +169,9 @@ void Init_Texture(){
     Space_Ship.Set_Size(50, 60);
     gBackGround.Load_From_File("image/background.jpg");
     gBackGround.Set_Size(1200, 800);
-    Explosion.Load_From_File("image/explosions/rock-explosion.png");
+    Explosion.Load_From_File("image/explosions/rock-explosions.png");
     Rock.Load_From_File("image/Rocks.png");
+    small_rock.Load_From_File("image/rock_small.png");
     Bullet.Load_From_File("image/blue_bullet.png");
     Bullet_pack.Load_From_File("image/bullet_icon.png");
     Ship_Explosion.Load_From_File("image/explosions/ship-explosion.png");
@@ -177,19 +180,41 @@ void Init_Texture(){
     Life.Load_From_File("image/life.png");
     Life.Set_Position(10, 10);
     Life.Set_Size(200, 55);
+    Life_2.Load_From_File("image/life.png");
+    Life_2.Set_Position(990, 10);
+    Life_2.Set_Size(200, 55);
     Score_background.Load_From_File("image/Score_background.png");
     Score_background.Set_Position(220, 10);
     Score_background.Set_Size(300, 55);
+    Score_background_2.Load_From_File("image/Score_background.png");
+    Score_background_2.Set_Position(680, 10);
+    Score_background_2.Set_Size(300, 55);
 
     ////////////// Init Word_Texture ////////////////////
     Score.Load_Font("times-new-roman.ttf", 40);
     Score.Load_From_Text("SCORE:");
     Score.Set_Color(255, 255, 255, 255);
     Score.Set_Position(229, 14);
+    Score_2.Load_Font("times-new-roman.ttf", 40);
+    Score_2.Load_From_Text("SCORE:");
+    Score_2.Set_Color(255, 255, 255, 255);
+    Score_2.Set_Position(690, 14);
     score_amount.Load_Font("times-new-roman.ttf", 40);
     score_amount.Set_Position(400, 14);
     score_amount.Load_From_Number(0);
     score_amount.Set_Color(255, 255, 255, 255);
+    score_amount_2.Load_Font("times-new-roman.ttf", 40);
+    score_amount_2.Set_Position(860, 14);
+    score_amount_2.Load_From_Number(0);
+    score_amount_2.Set_Color(255, 255, 255, 255);
+    p1_id.Load_Font("times-new-roman.ttf", 40);
+    p1_id.Load_From_Text("P1");
+    p1_id.Set_Color(255, 50, 0, 255);
+    p1_id.Set_Size(30, 25);
+    p2_id.Load_Font("times-new-roman.ttf", 40);
+    p2_id.Load_From_Text("P2");
+    p2_id.Set_Color(0, 255, 0, 255);
+    p2_id.Set_Size(30, 25);
     Game_Over.Load_Font("times-new-roman.ttf", 90);
     Game_Over.Load_From_Text("GAME OVER!");
     Game_Over.Set_Color(255, 255, 255, 255);
@@ -231,16 +256,21 @@ void Clean_Up(){
     Space_Ship.free();
     Explosion.free();
     Rock.free();
+    small_rock.free();
     Bullet.free();
     Bullet_pack.free();
     Ship_Explosion.free();
     Bomb.free();
     Fast_shoot.free();
     Life.free();
+    Life_2.free();
     Score_background.free();
+    Score_background_2.free();
 
     Score.free();
+    Score_2.free();
     score_amount.free();
+    score_amount_2.free();
     Game_Over.free();
     Replay_but.free();
     Exit_but.free();
@@ -248,6 +278,8 @@ void Clean_Up(){
     Main_Menu_but.free();
     Continue_but.free();
     High_Score_but.free();
+    p1_id.free();
+    p2_id.free();
 
     SDL_Quit();
     IMG_Quit();

@@ -158,3 +158,163 @@
 	"Texture.h"
 	"GamePlay.h"
 
+1592266090 source:c:\users\dell\documents\space-shooter-master\resource.rc
+
+1595240207 source:c:\users\dell\documents\space-shooter-master\source codes\animation.cpp
+	"Animation.h"
+
+1592266090 c:\users\dell\documents\space-shooter-master\source codes\animation.h
+	"Texture.h"
+	<vector>
+
+1592266090 c:\users\dell\documents\space-shooter-master\source codes\texture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<cstdlib>
+	<sstream>
+	<vector>
+
+1595240289 source:c:\users\dell\documents\space-shooter-master\source codes\enttity.cpp
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+
+1595235695 c:\users\dell\documents\space-shooter-master\source codes\entity.h
+	<iostream>
+	<list>
+	<cmath>
+	"Animation.h"
+	"Entity.h"
+
+1595239993 c:\users\dell\documents\space-shooter-master\source codes\objects.h
+	"Entity.h"
+
+1592266090 c:\users\dell\documents\space-shooter-master\source codes\sound.h
+	<SDL_mixer.h>
+
+1592266090 source:c:\users\dell\documents\space-shooter-master\source codes\main.cpp
+	"Texture.h"
+	"GamePlay.h"
+	"Sound.h"
+	"Animation.h"
+	"MainMenu.h"
+	<ctime>
+
+1595235616 c:\users\dell\documents\space-shooter-master\source codes\gameplay.h
+	<list>
+	"MainMenu.h"
+
+1592266090 c:\users\dell\documents\space-shooter-master\source codes\mainmenu.h
+	<SDL.h>
+	<iostream>
+	<list>
+	<fstream>
+	<algorithm>
+
+1595234422 source:c:\users\dell\documents\space-shooter-master\source codes\mainmenu.cpp
+	"MainMenu.h"
+	"Texture.h"
+	"Objects.h"
+	"GamePlay.h"
+
+1595239993 source:c:\users\dell\documents\space-shooter-master\source codes\objects.cpp
+	"Objects.h"
+
+1592266090 source:c:\users\dell\documents\space-shooter-master\source codes\sound.cpp
+	"Sound.h"
+
+1595239625 source:c:\users\dell\documents\space-shooter-master\source codes\texture.cpp
+	"Texture.h"
+	"GamePlay.h"
+
+1595240327 source:c:\users\dell\documents\space-shooter-master\source codes\gameplay.cpp
+	"GamePlay.h"
+	"Texture.h"
+	"Animation.h"
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+	"MainMenu.h"
+
+1592215690 source:c:\users\administrator\downloads\compressed\space-shooter-master\resource.rc
+
+1595253103 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\animation.cpp
+	"Animation.h"
+
+1595248096 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\animation.h
+	"Texture.h"
+	<vector>
+
+1595248590 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\texture.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<cstdlib>
+	<sstream>
+	<vector>
+
+1595253857 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\enttity.cpp
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+
+1595248103 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\entity.h
+	<iostream>
+	<list>
+	<cmath>
+	"Animation.h"
+	"Entity.h"
+
+1595253544 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\objects.h
+	"Entity.h"
+
+1595248123 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\sound.h
+	<SDL_mixer.h>
+
+1595255307 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\gameplay.cpp
+	"GamePlay.h"
+	"Texture.h"
+	"Animation.h"
+	"Entity.h"
+	"Objects.h"
+	"Sound.h"
+	"MainMenu.h"
+
+1595248108 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\gameplay.h
+	<list>
+	"MainMenu.h"
+
+1595248113 c:\users\administrator\downloads\compressed\space-shooter-master\source codes\mainmenu.h
+	<SDL.h>
+	<iostream>
+	<list>
+	<fstream>
+	<algorithm>
+
+1595248637 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\main.cpp
+	"Texture.h"
+	"GamePlay.h"
+	"Sound.h"
+	"Animation.h"
+	"MainMenu.h"
+	<ctime>
+
+1595248073 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\mainmenu.cpp
+	"MainMenu.h"
+	"Texture.h"
+	"Objects.h"
+	"GamePlay.h"
+
+1595253544 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\objects.cpp
+	"Objects.h"
+
+1595248065 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\sound.cpp
+	"Sound.h"
+
+1595255181 source:c:\users\administrator\downloads\compressed\space-shooter-master\source codes\texture.cpp
+	"Texture.h"
+	"GamePlay.h"
+
