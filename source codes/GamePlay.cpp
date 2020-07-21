@@ -145,7 +145,12 @@ int Game_Play(bool duel_play){
 
         // *************************************************************** //
         // CHECK GAME OVER //
-        if(p1_dead == true && p2_dead == true) game_over = true;
+        if(p1_dead == true){
+            if(duel_play == true){
+                if(p2_dead == true) game_over = true;
+            }
+            else game_over = true;
+        }
 
         // **************************************************************** //
         /////////////////// Fire bullet //////////////////////////////
