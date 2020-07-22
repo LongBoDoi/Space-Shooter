@@ -80,26 +80,25 @@ int Game_Play(bool duel_play){
     const Uint8* currentKeyState_2 = SDL_GetKeyboardState( NULL );
     bool game_over = false;
     p1_dead = p2_dead = false;
-    int move_speed = 6;
     bool p1_shooting = false, p2_shooting = false;
     double p1_overheat_lv = 0, p2_overheat_lv = 0;
     bool p1_overheated = false, p2_overheated = false;
     double p1_overheat_cooldown = 0, p2_overheat_cooldown = 0;
     while(!game_over){
         if( currentKeyState[ SDL_SCANCODE_W ] ){
-            Ship_Pos.y -= move_speed;
+            Ship_Pos.y -= p->move_speed;
             if(Ship_Pos.y < 0) Ship_Pos.y = 0;
         }
         if( currentKeyState[ SDL_SCANCODE_A ] ){
-            Ship_Pos.x -= move_speed;
+            Ship_Pos.x -= p->move_speed;
             if(Ship_Pos.x < 0) Ship_Pos.x = 0;
         }
         if( currentKeyState[ SDL_SCANCODE_S ] ){
-            Ship_Pos.y += move_speed;
+            Ship_Pos.y += p->move_speed;
             if(Ship_Pos.y > 750) Ship_Pos.y = 750;
         }
         if( currentKeyState[ SDL_SCANCODE_D ] ){
-            Ship_Pos.x += move_speed;
+            Ship_Pos.x += p->move_speed;
             if(Ship_Pos.x > 1150) Ship_Pos.x = 1150;
         }
         if( currentKeyState[ SDL_SCANCODE_SPACE ] ){
@@ -109,13 +108,14 @@ int Game_Play(bool duel_play){
             }
             p1_shooting = true;
             if(p1_overheated == false && p->alive == true)
-                p1_overheat_lv += ((p->fast_shoot_enabled == true) ? 0.25 : 0.15);
+                p1_overheat_lv += 0.15;
             if(p1_overheat_lv >= 100){
                 p1_overheat_lv = 100;
                 p1_overheated = true;
             }
         }
         else{
+            shoot_delay = 0.99;
             p1_shooting = false;
             if(p1_overheated == false) p1_overheat_lv-=0.15;
             if(p1_overheat_lv < 0) p1_overheat_lv = 0;
@@ -127,31 +127,32 @@ int Game_Play(bool duel_play){
             }
             p2_shooting = true;
             if(p2_overheated == false && p2->alive == true)
-                p2_overheat_lv += ((p2->fast_shoot_enabled == true) ? 0.25 : 0.15);
+                p2_overheat_lv += 0.15;
             if(p2_overheat_lv >= 100){
                 p2_overheat_lv = 100;
                 p2_overheated = true;
             }
         }
         else{
+            shoot_delay_2 = 0.99;
             p2_shooting = false;
             if(p2_overheated == false) p2_overheat_lv-=0.15;
             if(p2_overheat_lv < 0) p2_overheat_lv = 0;
         }
         if( currentKeyState_2[ SDL_SCANCODE_UP ] ){
-            Ship_Pos_2.y -= move_speed;
+            Ship_Pos_2.y -= p2->move_speed;
             if(Ship_Pos_2.y < 0) Ship_Pos_2.y = 0;
         }
         if( currentKeyState_2[ SDL_SCANCODE_DOWN ] ){
-            Ship_Pos_2.y += move_speed;
+            Ship_Pos_2.y += p2->move_speed;
             if(Ship_Pos_2.y > 750) Ship_Pos_2.y = 750;
         }
         if( currentKeyState_2[ SDL_SCANCODE_LEFT ] ){
-            Ship_Pos_2.x -= move_speed;
+            Ship_Pos_2.x -= p2->move_speed;
             if(Ship_Pos_2.x < 0) Ship_Pos_2.x = 0;
         }
         if( currentKeyState_2[ SDL_SCANCODE_RIGHT ] ){
-            Ship_Pos_2.x += move_speed;
+            Ship_Pos_2.x += p2->move_speed;
             if(Ship_Pos_2.x > 1150) Ship_Pos_2.x = 1150;
         }
         if( currentKeyState_2[ SDL_SCANCODE_ESCAPE ] ){
@@ -197,10 +198,9 @@ int Game_Play(bool duel_play){
         /////////////////// Fire bullet //////////////////////////////
         if(p->alive == true && p1_dead == false && p1_shooting == true && p1_overheated == false){
 
-        shoot_speed = (p->fast_shoot_enabled == true ? 1.2 : 0.2);
-        // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
+        shoot_speed = 0.25;
         shoot_delay += shoot_speed;
-        if(shoot_delay > 2.5){
+        if(shoot_delay > 1){
             shoot_delay = 0;
             // reset the shoot delay time to 0 and create a new bullet;
             bullet *bul = new bullet();
@@ -223,10 +223,10 @@ int Game_Play(bool duel_play){
         if(p2->alive == true && p2_dead == false && duel_play == true &&
            p2_shooting == true && p2_overheated == false){
 
-        shoot_speed_2 = (p2->fast_shoot_enabled == true ? 1.2 : 0.2);
+        shoot_speed_2 = 0.25;
         // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
         shoot_delay_2 += shoot_speed_2;
-        if(shoot_delay_2 > 2.5){
+        if(shoot_delay_2 > 1){
             shoot_delay_2 = 0;
             // reset the shoot delay time to 0 and create a new bullet;
             bullet_2 *bul = new bullet_2();
@@ -266,21 +266,21 @@ int Game_Play(bool duel_play){
 
         // ******************************************************************* //
         ////////////////////// Fast shoot ///////////////////////////////
-        if(p->fast_shoot_enabled == true && p1_dead == false){
+        if(p->move_speed == 10 && p1_dead == false){
             fast_shoot_time += delay_speed;
             // if the player has fast shoot then start the time delay for fast shooting
-            if(fast_shoot_time > 200){
+            if(fast_shoot_time > 150){
                 fast_shoot_time = 0;
-                p->fast_shoot_enabled = false;
+                p->move_speed = 6;
             }
             // When the delay is over reset to normal speed shooting
         }
-        if(p2->fast_shoot_enabled == true && p2_dead == false){
+        if(p2->move_speed == 10 && p2_dead == false){
             fast_shoot_time_2 += delay_speed;
             // if the player has fast shoot then start the time delay for fast shooting
-            if(fast_shoot_time_2 > 200){
+            if(fast_shoot_time_2 > 150){
                 fast_shoot_time_2 = 0;
-                p2->fast_shoot_enabled = false;
+                p2->move_speed = 6;
             }
             // When the delay is over reset to normal speed shooting
         }
@@ -368,7 +368,7 @@ int Game_Play(bool duel_play){
             // that explosions only happen once
         }
 
-        if (rand() % ((duel_play == true) ? 75 : 100) == 0)
+        if (rand() % ((duel_play == true) ? 75 : 100) < 2)
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
@@ -376,21 +376,21 @@ int Game_Play(bool duel_play){
         }
         // Randomly create a new asteroid
 
-        if (rand() % ((duel_play == true) ? 2000 : 4000) == 0){
+        if (rand() % ((duel_play == true) ? 2000 : 4000) < 2){
             package *bp = new package("bullet_pack");
             bp->settings(sBullet_pack, rand() % 1150, 0, 0, 35);
             entities.push_back(bp);
         }
         // Randomly create a new bullet package
 
-        if (rand() % ((duel_play == true) ? 3000 : 5000) == 0){
+        if (rand() % ((duel_play == true) ? 3000 : 5000) < 2){
             package *b = new package("bomb");
             b->settings(sBomb, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
         }
         // Randomly create a new bomb package
 
-        if (rand() % ((duel_play == true) ? 1000 : 3000) == 0){
+        if (rand() % ((duel_play == true) ? 1000 : 3000) < 3){
             package *b = new package("fast_shoot");
             b->settings(sFast_shoot, rand() % 1150, 0, 0, 35);
             entities.push_back(b);

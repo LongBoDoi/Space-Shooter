@@ -78,7 +78,7 @@ void player::Get_Position(int x_, int y_){
 
 void player::reset(){
     bullet_num = 1;
-    fast_shoot_enabled = false;
+    move_speed = 6;
 }
 
 //////////////// class package ////////////////////////////

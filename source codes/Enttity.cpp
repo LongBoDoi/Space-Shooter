@@ -304,7 +304,7 @@ void Handle_Collision(bool& game_over, bool duel_play){
                 // reset the fast_shoot time to 0
                 a->life = false;
                 // Destroy the package
-                p->fast_shoot_enabled = true;
+                p->move_speed = 10;
                 // Set the player to fast shoot
                 p->scores += 50;
                 score_amount.Load_From_Number(p->scores);
@@ -320,7 +320,7 @@ void Handle_Collision(bool& game_over, bool duel_play){
                 // reset the fast_shoot time to 0
                 a->life = false;
                 // Destroy the package
-                p2->fast_shoot_enabled = true;
+                p2->move_speed = 10;
                 // Set the player to fast shoot
                 p2->scores += 50;
                 score_amount_2.Load_From_Number(p2->scores);

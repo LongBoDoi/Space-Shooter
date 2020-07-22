@@ -4,6 +4,8 @@
 
 This game is created based on the classic Space shooter game with new features
 
+Game Size: 56.2 MB.
+
 --- VERSION 2.5 (latest) ---
 
 - Change play mode: Press to shoot with Overheat bar.

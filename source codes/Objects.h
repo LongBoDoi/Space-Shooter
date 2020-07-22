@@ -46,7 +46,7 @@ class player: public Entity
    public:
 
     int bullet_num = 1;
-    bool fast_shoot_enabled = false;
+    int move_speed = 6;
     bool alive = true;
     bool vulnerable = true;
     bool revive = false;
