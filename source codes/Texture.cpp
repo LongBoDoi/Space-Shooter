@@ -11,7 +11,7 @@ Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet,
 Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but, Start_but,
              Main_Menu_but, Continue_but, High_Score_but,
              Score_2, score_amount_2, p1_id, p2_id,
-             Single_Play, Duel_Play;
+             Single_Play, Duel_Play, Game_Version;
 
 void Texture::Load_From_File(std::string path){
     free();
@@ -265,6 +265,10 @@ void Init_Texture(){
     Duel_Play.Load_From_Text("2 Players");
     Duel_Play.Set_Color(255, 255, 255, 255);
     Duel_Play.Set_Position(510, 450);
+    Game_Version.Load_Font("times-new-roman.ttf", 30);
+    Game_Version.Load_From_Text("Version 2.5");
+    Game_Version.Set_Color(255, 255, 255, 255);
+    Game_Version.Set_Position(520, 750);
 }
 
 void Clean_Up(){
@@ -308,6 +312,7 @@ void Clean_Up(){
     p2_id.free();
     Single_Play.free();
     Duel_Play.free();
+    Game_Version.free();
 
     SDL_Quit();
     IMG_Quit();

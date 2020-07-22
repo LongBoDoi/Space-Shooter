@@ -9,7 +9,7 @@ extern animation sRock;
 
 extern Texture Game_Logo, gBackGround, Life, Score_background;
 extern Word_Texture Start_but, Exit_but, Replay_but, Main_Menu_but, Continue_but, High_Score_but,
-        score_amount, Score, Single_Play, Duel_Play;
+        score_amount, Score, Single_Play, Duel_Play, Game_Version;
 
 extern std::list<Entity*> entities;
 
@@ -67,6 +67,7 @@ int Main_Menu(){
         Start_but.render();
         Exit_but.render();
         High_Score_but.render();
+        Game_Version.render();
         SDL_RenderPresent(gRenderer);
     }
 }

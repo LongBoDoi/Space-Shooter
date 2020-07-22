@@ -4,7 +4,11 @@
 
 This game is created based on the classic Space shooter game with new features
 
---- VERSION 2.4 (latest) ---
+--- VERSION 2.5 (latest) ---
+
+- Change play mode: Press to shoot with Overheat bar.
+
+--- VERSION 2.4 ---
 
 - Fix high speed problem on some computers.
 
