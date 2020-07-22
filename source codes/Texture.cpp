@@ -6,7 +6,8 @@ extern SDL_Renderer* gRenderer;
 
 Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet,
         Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background, Game_Logo,
-        Life_2, Score_background_2;
+        Life_2, Score_background_2, Overheat_1, Overheat_2, Overheat_frame_1,
+        Overheat_frame_2;
 Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but, Start_but,
              Main_Menu_but, Continue_but, High_Score_but,
              Score_2, score_amount_2, p1_id, p2_id,
@@ -190,6 +191,18 @@ void Init_Texture(){
     Score_background_2.Load_From_File("image/Score_background.png");
     Score_background_2.Set_Position(680, 10);
     Score_background_2.Set_Size(300, 55);
+    Overheat_1.Load_From_File("image/Overheat_bar.png");
+    Overheat_1.Set_Position(11, 78);
+    Overheat_1.Set_Size(198, 24);
+    Overheat_2.Load_From_File("image/Overheat_bar.png");
+    Overheat_2.Set_Position(991, 78);
+    Overheat_2.Set_Size(198, 24);
+    Overheat_frame_1.Load_From_File("image/Overheat_frame.png");
+    Overheat_frame_1.Set_Position(10, 75);
+    Overheat_frame_1.Set_Size(200, 30);
+    Overheat_frame_2.Load_From_File("image/Overheat_frame.png");
+    Overheat_frame_2.Set_Position(990, 75);
+    Overheat_frame_2.Set_Size(200, 30);
 
     ////////////// Init Word_Texture ////////////////////
     Score.Load_Font("times-new-roman.ttf", 40);
@@ -275,6 +288,10 @@ void Clean_Up(){
     Life_2.free();
     Score_background.free();
     Score_background_2.free();
+    Overheat_1.free();
+    Overheat_2.free();
+    Overheat_frame_1.free();
+    Overheat_frame_2.free();
 
     Score.free();
     Score_2.free();

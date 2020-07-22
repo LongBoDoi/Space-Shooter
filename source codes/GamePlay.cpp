@@ -10,7 +10,8 @@ extern SDL_Renderer* gRenderer;
 
 extern Texture Space_Ship, gBackGround, Explosion, Rock, Bullet,
                 Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background,
-                Life_2, Score_background_2;
+                Life_2, Score_background_2, Overheat_1, Overheat_2,
+                Overheat_frame_1, Overheat_frame_2;
 extern Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but,
         Main_Menu_but, Score_2, score_amount_2, p1_id, p2_id;
 
@@ -80,6 +81,10 @@ int Game_Play(bool duel_play){
     bool game_over = false;
     p1_dead = p2_dead = false;
     int move_speed = 6;
+    bool p1_shooting = false, p2_shooting = false;
+    double p1_overheat_lv = 0, p2_overheat_lv = 0;
+    bool p1_overheated = false, p2_overheated = false;
+    double p1_overheat_cooldown = 0, p2_overheat_cooldown = 0;
     while(!game_over){
         if( currentKeyState[ SDL_SCANCODE_W ] ){
             Ship_Pos.y -= move_speed;
@@ -96,6 +101,42 @@ int Game_Play(bool duel_play){
         if( currentKeyState[ SDL_SCANCODE_D ] ){
             Ship_Pos.x += move_speed;
             if(Ship_Pos.x > 1150) Ship_Pos.x = 1150;
+        }
+        if( currentKeyState[ SDL_SCANCODE_SPACE ] ){
+            if(p->alive == false && p1_overheated == false){
+                p1_overheat_lv-=0.15;
+                if(p1_overheat_lv < 0) p1_overheat_lv = 0;
+            }
+            p1_shooting = true;
+            if(p1_overheated == false && p->alive == true)
+                p1_overheat_lv += ((p->fast_shoot_enabled == true) ? 0.25 : 0.15);
+            if(p1_overheat_lv >= 100){
+                p1_overheat_lv = 100;
+                p1_overheated = true;
+            }
+        }
+        else{
+            p1_shooting = false;
+            if(p1_overheated == false) p1_overheat_lv-=0.15;
+            if(p1_overheat_lv < 0) p1_overheat_lv = 0;
+        }
+        if( currentKeyState[ SDL_SCANCODE_KP_0 ] ){
+            if(p2->alive == false && p2_overheated == false){
+                p2_overheat_lv-=0.15;
+                if(p1_overheat_lv < 0) p1_overheat_lv = 0;
+            }
+            p2_shooting = true;
+            if(p2_overheated == false && p2->alive == true)
+                p2_overheat_lv += ((p2->fast_shoot_enabled == true) ? 0.25 : 0.15);
+            if(p2_overheat_lv >= 100){
+                p2_overheat_lv = 100;
+                p2_overheated = true;
+            }
+        }
+        else{
+            p2_shooting = false;
+            if(p2_overheated == false) p2_overheat_lv-=0.15;
+            if(p2_overheat_lv < 0) p2_overheat_lv = 0;
         }
         if( currentKeyState_2[ SDL_SCANCODE_UP ] ){
             Ship_Pos_2.y -= move_speed;
@@ -154,12 +195,12 @@ int Game_Play(bool duel_play){
 
         // **************************************************************** //
         /////////////////// Fire bullet //////////////////////////////
-        if(p->alive == true && p1_dead == false){
+        if(p->alive == true && p1_dead == false && p1_shooting == true && p1_overheated == false){
 
         shoot_speed = (p->fast_shoot_enabled == true ? 1.2 : 0.2);
         // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
         shoot_delay += shoot_speed;
-        if(shoot_delay > 8){
+        if(shoot_delay > 2.5){
             shoot_delay = 0;
             // reset the shoot delay time to 0 and create a new bullet;
             bullet *bul = new bullet();
@@ -179,12 +220,13 @@ int Game_Play(bool duel_play){
             Play_Sound(Fire_sound, 0);
         }
         }
-        if(p2->alive == true && p2_dead == false && duel_play == true){
+        if(p2->alive == true && p2_dead == false && duel_play == true &&
+           p2_shooting == true && p2_overheated == false){
 
         shoot_speed_2 = (p2->fast_shoot_enabled == true ? 1.2 : 0.2);
         // if the player has fast shoot then the shooting speed is 1.2 else it is 0.2
         shoot_delay_2 += shoot_speed_2;
-        if(shoot_delay_2 > 8){
+        if(shoot_delay_2 > 2.5){
             shoot_delay_2 = 0;
             // reset the shoot delay time to 0 and create a new bullet;
             bullet_2 *bul = new bullet_2();
@@ -203,6 +245,23 @@ int Game_Play(bool duel_play){
             entities.push_back(bul);
             Play_Sound(Fire_sound, 0);
         }
+        }
+
+        // ******************************************************************* //
+        // CHECK OVERHEAT //
+        if(p1_overheated == true){
+            p1_overheat_cooldown += 0.2;
+            if(p1_overheat_cooldown >= 70){
+                p1_overheat_cooldown = 0;
+                p1_overheated = false;
+            }
+        }
+        if(p2_overheated == true){
+            p2_overheat_cooldown += 0.2;
+            if(p2_overheat_cooldown >= 70){
+                p2_overheat_cooldown = 0;
+                p2_overheated = false;
+            }
         }
 
         // ******************************************************************* //
@@ -309,7 +368,7 @@ int Game_Play(bool duel_play){
             // that explosions only happen once
         }
 
-        if (rand() % ((duel_play == true) ? 150 : 200) == 0)
+        if (rand() % ((duel_play == true) ? 75 : 100) == 0)
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
@@ -365,11 +424,19 @@ int Game_Play(bool duel_play){
         Score_background.render();
         Score.render();
         score_amount.render();
+        Overheat_frame_1.render();
+        Overheat_1.Set_Rect(0, 0, 1200 * (int)p1_overheat_lv / 100, 70);
+        Overheat_1.Set_Size(198 * (int)p1_overheat_lv / 100, 24);
+        Overheat_1.render();
         if(duel_play == true){
             Life_2.render();
             Score_background_2.render();
             Score_2.render();
             score_amount_2.render();
+            Overheat_frame_2.render();
+            Overheat_2.Set_Rect(0, 0, 1200 * (int)p2_overheat_lv / 100, 70);
+            Overheat_2.Set_Size(198 * (int)p2_overheat_lv / 100, 24);
+            Overheat_2.render();
         }
 
         SDL_RenderPresent(gRenderer);
@@ -438,11 +505,15 @@ int Game_Play(bool duel_play){
         Score_background.render();
         Score.render();
         score_amount.render();
+        Overheat_frame_1.render();
+        Overheat_1.render();
         if(duel_play == true){
             Life_2.render();
             Score_background_2.render();
             Score_2.render();
             score_amount_2.render();
+            Overheat_frame_2.render();
+            Overheat_2.render();
         }
         Game_Over.render();
         Replay_but.render();
