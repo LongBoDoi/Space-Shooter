@@ -368,7 +368,7 @@ int Game_Play(bool duel_play){
             // that explosions only happen once
         }
 
-        if (rand() % ((duel_play == true) ? 75 : 100) < 2)
+        if (rand() % 100 < ((duel_play == true) ? 3 : 2))
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
@@ -390,7 +390,7 @@ int Game_Play(bool duel_play){
         }
         // Randomly create a new bomb package
 
-        if (rand() % ((duel_play == true) ? 1000 : 3000) < 3){
+        if (rand() % 3000 < ((duel_play == true) ? 4 : 2)){
             package *b = new package("fast_shoot");
             b->settings(sFast_shoot, rand() % 1150, 0, 0, 35);
             entities.push_back(b);
