@@ -4,7 +4,7 @@
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
-Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet,
+Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet, Bullet_2,
         Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background, Game_Logo,
         Life_2, Score_background_2, Overheat_1, Overheat_2, Overheat_frame_1,
         Overheat_frame_2;
@@ -175,6 +175,7 @@ void Init_Texture(){
     Rock.Load_From_File("image/Rocks.png");
     small_rock.Load_From_File("image/rock_small.png");
     Bullet.Load_From_File("image/blue_bullet.png");
+    Bullet_2.Load_From_File("image/red_bullet.png");
     Bullet_pack.Load_From_File("image/bullet_icon.png");
     Ship_Explosion.Load_From_File("image/explosions/ship-explosion.png");
     Bomb.Load_From_File("image/Bomb.png");
@@ -296,6 +297,7 @@ void Clean_Up(){
     Overheat_2.free();
     Overheat_frame_1.free();
     Overheat_frame_2.free();
+    Bullet_2.free();
 
     Score.free();
     Score_2.free();

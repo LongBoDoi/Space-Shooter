@@ -1,7 +1,8 @@
 #include "Animation.h"
 
 extern Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet,
-        Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background;
+        Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background,
+        Bullet_2;
 
 animation sBullet, sExplosion, ship_explosion, sPlayer, sPlayer_dead, sPlayer_respawn,
             sBullet_pack, sBomb, sFast_shoot, sRock, sRock_small, sBullet_2;
@@ -42,7 +43,7 @@ bool animation::isEnd(){
 
 void Init_Animation(){
     sBullet = animation(Bullet, 0, 0, 32, 64, 16, 0.8);
-    sBullet_2 = animation(Bullet, 0, 0, 32, 64, 16, 0.8);
+    sBullet_2 = animation(Bullet_2, 0, 0, 32, 64, 16, 0.8);
     sExplosion = animation(Explosion, 0, 0, 256, 256, 48, 0.65);
     ship_explosion = animation(Ship_Explosion, 0, 0, 192, 192, 64, 0.65);
     sPlayer = animation(Space_Ship, 39, 0, 39, 39, 1, 0);

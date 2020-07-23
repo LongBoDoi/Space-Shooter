@@ -12,7 +12,8 @@ extern Mix_Chunk *Fire_sound, *explo_sound, *bonus_sound, *ship_explo;
 extern player *p, *p2;
 
 extern Texture Space_Ship, gBackGround, Explosion, Rock, Bullet, Life_2,
-        Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background;
+        Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background,
+        Bullet_2;
 extern Word_Texture Score, score_amount, score_amount_2;
 
 extern SDL_Point Ship_Pos, Ship_Pos_2;
@@ -169,7 +170,7 @@ void Handle_Collision(bool& game_over, bool duel_play){
 
                 Life_2.Set_Rect(0, p2->lifes * 64, 212, 64);
                 score_amount_2.Load_From_Number(p2->scores);
-                sBullet_2 = animation(Bullet, 0, 0, 32, 64, 16, 0.8);
+                sBullet_2 = animation(Bullet_2, 0, 0, 32, 64, 16, 0.8);
                 // Change the texture of the life bar, score_amount and the animation sBullet
                 // as the number of bullets has reset
 
@@ -229,10 +230,10 @@ void Handle_Collision(bool& game_over, bool duel_play){
                 if(p2->bullet_num > 3) p2->bullet_num = 3;
                 // the maximum of number of bullets is 3
                 if(p2->bullet_num == 2){
-                    sBullet_2 = animation(Bullet, 0, 64, 52, 64, 16, 0.8);
+                    sBullet_2 = animation(Bullet_2, 0, 64, 52, 64, 16, 0.8);
                 }
                 else if(p2->bullet_num == 3){
-                    sBullet_2 = animation(Bullet, 0, 128, 70, 64, 16, 0.8);
+                    sBullet_2 = animation(Bullet_2, 0, 128, 70, 64, 16, 0.8);
                 }
                 // set the animation of bullet according to the number of bullet which has just been updated
             }
