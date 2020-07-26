@@ -6,7 +6,11 @@ This game is created based on the classic Space shooter game with new features
 
 Game Size: 56.2 MB.
 
---- VERSION 2.5 (latest) ---
+--- VERSION 2.6 (latest) ---
+
+- Add Boss Spaceships after every 30 seconds.
+
+--- VERSION 2.5 ---
 
 - Change play mode: Press to shoot with Overheat bar.
 

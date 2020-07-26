@@ -7,9 +7,14 @@ extern SDL_Renderer* gRenderer;
 
 extern animation sRock;
 
-extern Texture Game_Logo, gBackGround, Life, Score_background;
+extern Texture Game_Logo, gBackGround, Life, Score_background, Life_2, Score_background_2,
+        Overheat_frame_2, Overheat_2, Boss_health_frame, Boss_health_bar, Overheat_1,
+        Overheat_frame_1;
 extern Word_Texture Start_but, Exit_but, Replay_but, Main_Menu_but, Continue_but, High_Score_but,
-        score_amount, Score, Single_Play, Duel_Play, Game_Version;
+        score_amount, Score, Single_Play, Duel_Play, Game_Version, Score_2, score_amount_2,
+        Boss_HP;
+
+extern bool boss_appearing;
 
 extern std::list<Entity*> entities;
 
@@ -105,17 +110,17 @@ int Play_Mode_Menu(){
     }
 }
 
-int Pause_Menu(SDL_Event *e){
+int Pause_Menu(SDL_Event *e, bool duel_play){
     SDL_ShowCursor(SDL_ENABLE);
 
     Exit_but.Set_Position(567, 540);
+    const Uint8* currentKeyState = SDL_GetKeyboardState( NULL );
     while(true){
+        if( currentKeyState[ SDL_SCANCODE_ESCAPE ] ){
+        //if(e.key.keysym.sym == SDLK_q) game_over = true;
+            return 0;
+        }
         while(SDL_PollEvent(e) != 0){
-            if(e->type == SDL_KEYDOWN){
-                if(e->key.keysym.sym == SDLK_ESCAPE){
-                    return 0;
-                }
-            }
             if(e->type == SDL_QUIT) return 3;
             Continue_but.Handle_Event(e);
             Replay_but.Handle_Event(e);
@@ -155,6 +160,22 @@ int Pause_Menu(SDL_Event *e){
         Score_background.render();
         Score.render();
         score_amount.render();
+        Overheat_frame_1.render();
+        Overheat_1.render();
+
+        if(duel_play == true){
+            Life_2.render();
+            Score_background_2.render();
+            Score_2.render();
+            score_amount_2.render();
+            Overheat_frame_2.render();
+            Overheat_2.render();
+        }
+        if(boss_appearing == true){
+            Boss_health_frame.render();
+            Boss_health_bar.render();
+            Boss_HP.render();
+        }
 
         Continue_but.render();
         Replay_but.render();

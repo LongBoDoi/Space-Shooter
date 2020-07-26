@@ -36,6 +36,8 @@ class Entity {
 bool is_Collide(Entity *a, Entity *b);
 // Check whether object a collides with object b
 
+bool shooted(Entity *a);
+
 void Handle_Collision(bool& game_over, bool duel_play);
 
 #endif // ENTITY_H_INCLUDED

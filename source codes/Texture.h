@@ -10,11 +10,14 @@
 #include<vector>
 
 class Texture{
+
+    public:
+
     SDL_Rect on_Screen;
     SDL_Texture* mTexture;
     SDL_Rect clip;
     double angle = 0;
-public:
+
     void Load_From_File(std::string path);
 
     void Set_Size(int w, int h);

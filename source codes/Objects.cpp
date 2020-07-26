@@ -44,23 +44,14 @@ void asteroid_small::update(){
 
 //////////////// class bullet ///////////////////////
 
-bullet::bullet(){
-    name = "bullet";
+bullet::bullet(std::string name_, bool direction_up_){
+    name = name_;
+    direction_up = direction_up_;
 }
 
 void bullet::update(){
-    y -= 14;
-    if(y < 0) life = false;
-    // if the bullet flies above the screen it will be destroyed
-}
-
-bullet_2::bullet_2(){
-    name = "bullet_2";
-}
-
-void bullet_2::update(){
-    y -= 14;
-    if(y < 0) life = false;
+    y -= ((direction_up == true) ? 14 : -9);
+    if(y < 0 || y > 800) life = false;
     // if the bullet flies above the screen it will be destroyed
 }
 
@@ -91,4 +82,47 @@ void package::update(){
     y += 4;
     if(y > 800) life = false;
     // if the package falls below the screen it will be destroyed
+}
+
+////////////////// class boss //////////////////////////////
+
+boss::boss(int max_health_, int move_speed_){
+    max_health = max_health_;
+    current_health = max_health;
+    dx = move_speed_;
+    special_attack = false;
+    spc_atk_charge = 0;
+    dy = 13;
+    intro = true;
+}
+
+void boss::update(){
+    if(intro == true){
+        y += 1;
+        if(y > 20){
+            y = 20;
+            intro = false;
+        }
+    }
+    else if(special_attack == false){
+        x += dx;
+        if(x < 0 || x > 1200-anim.t.on_Screen.w) dx = -dx;
+        if(rand() % 200 == 0) dx = -dx;
+        if(rand() % 300 == 0) special_attack = true;
+    }
+    else{
+        spc_atk_charge += 0.2;
+        if(spc_atk_charge > 12){
+            y+=dy;
+            if(y > 800 - anim.t.on_Screen.h){
+                dy = -dy;
+            }
+            if(y < 20){
+                y = 20;
+                dy = -dy;
+                special_attack = false;
+                spc_atk_charge = 0;
+            }
+        }
+    }
 }

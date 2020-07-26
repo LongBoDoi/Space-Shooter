@@ -11,12 +11,13 @@ extern SDL_Renderer* gRenderer;
 extern Texture Space_Ship, gBackGround, Explosion, Rock, Bullet,
                 Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background,
                 Life_2, Score_background_2, Overheat_1, Overheat_2,
-                Overheat_frame_1, Overheat_frame_2;
+                Overheat_frame_1, Overheat_frame_2, Boss_health_frame,
+                Boss_health_bar;
 extern Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but,
-        Main_Menu_but, Score_2, score_amount_2, p1_id, p2_id;
+        Main_Menu_but, Score_2, score_amount_2, p1_id, p2_id, Boss_HP;
 
 extern animation sBullet, sExplosion, ship_explosion, sPlayer, sPlayer_dead, sPlayer_respawn,
-            sBullet_pack, sBomb, sFast_shoot, sRock, sBullet_2;
+            sBullet_pack, sBomb, sFast_shoot, sRock, sBullet_2, Boss_anim, Boss_bullet;
 
 extern Mix_Chunk *Fire_sound, *explo_sound, *bonus_sound;
 
@@ -27,11 +28,13 @@ std::list<Entity*> entities;
 // All the objects will be stored in a list of Entity pointers
 
 player *p, *p2;
+boss *p_boss;
 
 SDL_Point Ship_Pos, Ship_Pos_2;
 //// Ship_Pos is used to save the position of the player (space_ship)
 
-float shoot_delay, shoot_delay_2, shoot_speed, shoot_speed_2;
+float shoot_delay, shoot_delay_2, shoot_delay_boss,
+    shoot_speed, shoot_speed_2;
 float fast_shoot_time, fast_shoot_time_2;
 float respawn_time, respawn_time_2;
 float delay_speed = 0.2;
@@ -42,6 +45,8 @@ bool p1_dead, p2_dead;
 // Check if the player pause the game
 
 int final_score_1, final_score_2;
+
+bool boss_appearing;
 
 int Game_Play(bool duel_play){
 
@@ -61,13 +66,15 @@ int Game_Play(bool duel_play){
     entities.push_back(p2);
     //// Create a new player with the class player
 
+    boss_appearing = false;
+
     final_score_1 = final_score_2 = 0;
 
     Ship_Pos = {500, 500};
     Ship_Pos_2 = {1000, 500};
     //// The starting position is 500 and 500
 
-    shoot_delay = shoot_delay_2 = 0;
+    shoot_delay = shoot_delay_2 = shoot_delay_boss = 0;
     fast_shoot_time = fast_shoot_time_2 = 0;
     respawn_time = respawn_time_2 = 0;
     shoot_speed = shoot_speed_2 = 0.2;
@@ -84,6 +91,8 @@ int Game_Play(bool duel_play){
     double p1_overheat_lv = 0, p2_overheat_lv = 0;
     bool p1_overheated = false, p2_overheated = false;
     double p1_overheat_cooldown = 0, p2_overheat_cooldown = 0;
+
+    double boss_time = 0;
     while(!game_over){
         if( currentKeyState[ SDL_SCANCODE_W ] ){
             Ship_Pos.y -= p->move_speed;
@@ -156,7 +165,6 @@ int Game_Play(bool duel_play){
             if(Ship_Pos_2.x > 1150) Ship_Pos_2.x = 1150;
         }
         if( currentKeyState_2[ SDL_SCANCODE_ESCAPE ] ){
-            //if(e.key.keysym.sym == SDLK_q) game_over = true;
             game_paused = true;
         }
         while(SDL_PollEvent( &e ) != 0){
@@ -170,15 +178,15 @@ int Game_Play(bool duel_play){
         //// Check game pause /////
         if(game_paused == true){
             game_paused = false;
-            int selection = Pause_Menu(&e);
+            int selection = Pause_Menu(&e, duel_play);
             if(selection == 1){
                 entities.clear();
                 return Game_Play(duel_play);
-            }
+            } else
             if(selection == 2){
                 entities.clear();
                 return Main_Menu();
-            }
+            } else
             if(selection == 3){
                 entities.clear();
                 return 0;
@@ -194,6 +202,21 @@ int Game_Play(bool duel_play){
             else game_over = true;
         }
 
+        // *************************************************************** //
+        // CREATE BOSS //
+        if(boss_appearing == false){
+            boss_time += 0.2;
+            if(boss_time > 14 * 30){
+                boss_time = 0;
+                int boss_hp = rand() % 10 + 1;
+                int boss_ms = (11 - boss_hp) / 2 + 1;
+                p_boss = new boss(boss_hp * 100, boss_ms);
+                p_boss->settings(Boss_anim, rand() % 900, -250, 0, 150);
+                entities.push_back(p_boss);
+                boss_appearing = true;
+            }
+        }
+
         // **************************************************************** //
         /////////////////// Fire bullet //////////////////////////////
         if(p->alive == true && p1_dead == false && p1_shooting == true && p1_overheated == false){
@@ -203,7 +226,7 @@ int Game_Play(bool duel_play){
         if(shoot_delay > 1){
             shoot_delay = 0;
             // reset the shoot delay time to 0 and create a new bullet;
-            bullet *bul = new bullet();
+            bullet *bul = new bullet("bullet", true);
             switch(p->bullet_num){
                 case 1:
                     bul->settings(sBullet, Ship_Pos.x + 7, Ship_Pos.y, 0, 7);
@@ -229,7 +252,7 @@ int Game_Play(bool duel_play){
         if(shoot_delay_2 > 1){
             shoot_delay_2 = 0;
             // reset the shoot delay time to 0 and create a new bullet;
-            bullet_2 *bul = new bullet_2();
+            bullet *bul = new bullet("bullet_2", true);
             switch(p2->bullet_num){
                 case 1:
                     bul->settings(sBullet_2, Ship_Pos_2.x + 7, Ship_Pos_2.y, 0, 7);
@@ -245,6 +268,19 @@ int Game_Play(bool duel_play){
             entities.push_back(bul);
             Play_Sound(Fire_sound, 0);
         }
+        }
+        if(boss_appearing == true ){
+            if(p_boss->intro == false && p_boss->special_attack == false)
+            shoot_delay_boss += delay_speed;
+            if(shoot_delay_boss > 17){
+                shoot_delay_boss = 0;
+                bullet *bul = new bullet("boss_bullet", false);
+                bul->settings(Boss_bullet, p_boss->x + 72, p_boss->y + 70, 0, 7);
+                entities.push_back(bul);
+                bullet *bul_2 = new bullet("boss_bullet", false);
+                bul_2->settings(Boss_bullet, p_boss->x + 152, p_boss->y + 70, 0, 7);
+                entities.push_back(bul_2);
+            }
         }
 
         // ******************************************************************* //
@@ -368,7 +404,7 @@ int Game_Play(bool duel_play){
             // that explosions only happen once
         }
 
-        if (rand() % 100 < ((duel_play == true) ? 3 : 2))
+        if (rand() % 200 < ((duel_play == true) ? 3 : 2))
         {
            asteroid *a = new asteroid();
            a->settings(sRock, rand() % 1150, 0, rand()%360, 25);
@@ -426,7 +462,7 @@ int Game_Play(bool duel_play){
         score_amount.render();
         Overheat_frame_1.render();
         Overheat_1.Set_Rect(0, 0, 1200 * (int)p1_overheat_lv / 100, 70);
-        Overheat_1.Set_Size(198 * (int)p1_overheat_lv / 100, 24);
+        Overheat_1.Set_Size(148 * (int)p1_overheat_lv / 100, 17);
         Overheat_1.render();
         if(duel_play == true){
             Life_2.render();
@@ -435,8 +471,19 @@ int Game_Play(bool duel_play){
             score_amount_2.render();
             Overheat_frame_2.render();
             Overheat_2.Set_Rect(0, 0, 1200 * (int)p2_overheat_lv / 100, 70);
-            Overheat_2.Set_Size(198 * (int)p2_overheat_lv / 100, 24);
+            Overheat_2.Set_Size(148 * (int)p2_overheat_lv / 100, 17);
             Overheat_2.render();
+        }
+        if(boss_appearing == true){
+            Boss_health_frame.Set_Position(p_boss->x, p_boss->y - 19);
+            Boss_health_frame.render();
+            Boss_health_bar.Set_Rect(0, 0, 1200 * p_boss->current_health / p_boss->max_health, 70);
+            Boss_health_bar.Set_Size(248 * p_boss->current_health / p_boss->max_health, 16);
+            Boss_health_bar.Set_Position(p_boss->x + 1, p_boss->y - 17);
+            Boss_health_bar.render();
+            Boss_HP.Set_Position(p_boss->x + 110, p_boss->y - 21);
+            Boss_HP.Load_From_Number(p_boss->current_health);
+            Boss_HP.render();
         }
 
         SDL_RenderPresent(gRenderer);
@@ -514,6 +561,11 @@ int Game_Play(bool duel_play){
             score_amount_2.render();
             Overheat_frame_2.render();
             Overheat_2.render();
+        }
+        if(boss_appearing == true){
+            Boss_health_frame.render();
+            Boss_health_bar.render();
+            Boss_HP.render();
         }
         Game_Over.render();
         Replay_but.render();

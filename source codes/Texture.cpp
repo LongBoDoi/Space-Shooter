@@ -7,11 +7,12 @@ extern SDL_Renderer* gRenderer;
 Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet, Bullet_2,
         Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background, Game_Logo,
         Life_2, Score_background_2, Overheat_1, Overheat_2, Overheat_frame_1,
-        Overheat_frame_2;
+        Overheat_frame_2, Boss, Boss_health_frame, Boss_health_bar,
+        Boss_bul;
 Word_Texture Score, score_amount, Game_Over, Replay_but, Exit_but, Start_but,
              Main_Menu_but, Continue_but, High_Score_but,
              Score_2, score_amount_2, p1_id, p2_id,
-             Single_Play, Duel_Play, Game_Version;
+             Single_Play, Duel_Play, Game_Version, Boss_HP;
 
 void Texture::Load_From_File(std::string path){
     free();
@@ -175,51 +176,54 @@ void Init_Texture(){
     Rock.Load_From_File("image/Rocks.png");
     small_rock.Load_From_File("image/rock_small.png");
     Bullet.Load_From_File("image/blue_bullet.png");
-    Bullet_2.Load_From_File("image/red_bullet.png");
+    Bullet_2.Load_From_File("image/blue_bullet.png");
+    Boss_bul.Load_From_File("image/red_bullet.png");
     Bullet_pack.Load_From_File("image/bullet_icon.png");
     Ship_Explosion.Load_From_File("image/explosions/ship-explosion.png");
     Bomb.Load_From_File("image/Bomb.png");
     Fast_shoot.Load_From_File("image/Fast_shoot.png");
     Life.Load_From_File("image/life.png");
-    Life.Set_Position(10, 10);
-    Life.Set_Size(200, 55);
+    Life.Set_Position(5, 765);
+    Life.Set_Size(150, 30);
     Life_2.Load_From_File("image/life.png");
-    Life_2.Set_Position(990, 10);
-    Life_2.Set_Size(200, 55);
+    Life_2.Set_Position(1045, 765);
+    Life_2.Set_Size(150, 30);
     Score_background.Load_From_File("image/Score_background.png");
-    Score_background.Set_Position(220, 10);
-    Score_background.Set_Size(300, 55);
+    Score_background.Set_Position(160, 765);
+    Score_background.Set_Size(200, 30);
     Score_background_2.Load_From_File("image/Score_background.png");
-    Score_background_2.Set_Position(680, 10);
-    Score_background_2.Set_Size(300, 55);
+    Score_background_2.Set_Position(840, 765);
+    Score_background_2.Set_Size(200, 30);
     Overheat_1.Load_From_File("image/Overheat_bar.png");
-    Overheat_1.Set_Position(11, 78);
-    Overheat_1.Set_Size(198, 24);
+    Overheat_1.Set_Position(6, 740);
     Overheat_2.Load_From_File("image/Overheat_bar.png");
-    Overheat_2.Set_Position(991, 78);
-    Overheat_2.Set_Size(198, 24);
+    Overheat_2.Set_Position(1046, 740);
     Overheat_frame_1.Load_From_File("image/Overheat_frame.png");
-    Overheat_frame_1.Set_Position(10, 75);
-    Overheat_frame_1.Set_Size(200, 30);
+    Overheat_frame_1.Set_Position(5, 738);
+    Overheat_frame_1.Set_Size(150, 22);
     Overheat_frame_2.Load_From_File("image/Overheat_frame.png");
-    Overheat_frame_2.Set_Position(990, 75);
-    Overheat_frame_2.Set_Size(200, 30);
+    Overheat_frame_2.Set_Position(1045, 738);
+    Overheat_frame_2.Set_Size(150, 22);
+    Boss.Load_From_File("image/Boss.png");
+    Boss_health_frame.Load_From_File("image/Boss_health_frame.png");
+    Boss_health_frame.Set_Size(250, 20);
+    Boss_health_bar.Load_From_File("image/Boss_health_bar.png");
 
     ////////////// Init Word_Texture ////////////////////
-    Score.Load_Font("times-new-roman.ttf", 40);
+    Score.Load_Font("times-new-roman.ttf", 25);
     Score.Load_From_Text("SCORE:");
     Score.Set_Color(255, 255, 255, 255);
-    Score.Set_Position(229, 14);
-    Score_2.Load_Font("times-new-roman.ttf", 40);
+    Score.Set_Position(163, 766);
+    Score_2.Load_Font("times-new-roman.ttf", 25);
     Score_2.Load_From_Text("SCORE:");
     Score_2.Set_Color(255, 255, 255, 255);
-    Score_2.Set_Position(690, 14);
-    score_amount.Load_Font("times-new-roman.ttf", 40);
-    score_amount.Set_Position(400, 14);
+    Score_2.Set_Position(843, 766);
+    score_amount.Load_Font("times-new-roman.ttf", 25);
+    score_amount.Set_Position(263, 766);
     score_amount.Load_From_Number(0);
     score_amount.Set_Color(255, 255, 255, 255);
-    score_amount_2.Load_Font("times-new-roman.ttf", 40);
-    score_amount_2.Set_Position(860, 14);
+    score_amount_2.Load_Font("times-new-roman.ttf", 25);
+    score_amount_2.Set_Position(943, 766);
     score_amount_2.Load_From_Number(0);
     score_amount_2.Set_Color(255, 255, 255, 255);
     p1_id.Load_Font("times-new-roman.ttf", 40);
@@ -267,9 +271,11 @@ void Init_Texture(){
     Duel_Play.Set_Color(255, 255, 255, 255);
     Duel_Play.Set_Position(510, 450);
     Game_Version.Load_Font("times-new-roman.ttf", 30);
-    Game_Version.Load_From_Text("Version 2.5");
+    Game_Version.Load_From_Text("Version 2.6");
     Game_Version.Set_Color(255, 255, 255, 255);
     Game_Version.Set_Position(520, 750);
+    Boss_HP.Load_Font("times-new-roman.ttf", 20);
+    Boss_HP.Set_Color(255, 255, 255, 255);
 }
 
 void Clean_Up(){
@@ -298,6 +304,10 @@ void Clean_Up(){
     Overheat_frame_1.free();
     Overheat_frame_2.free();
     Bullet_2.free();
+    Boss.free();
+    Boss_health_bar.free();
+    Boss_health_frame.free();
+    Boss_bul.free();
 
     Score.free();
     Score_2.free();
@@ -315,6 +325,7 @@ void Clean_Up(){
     Single_Play.free();
     Duel_Play.free();
     Game_Version.free();
+    Boss_HP.free();
 
     SDL_Quit();
     IMG_Quit();

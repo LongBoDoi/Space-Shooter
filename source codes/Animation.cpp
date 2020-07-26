@@ -2,10 +2,11 @@
 
 extern Texture Space_Ship, gBackGround, Explosion, Rock, small_rock, Bullet,
         Bullet_pack, Ship_Explosion, Bomb, Fast_shoot, Life, Score_background,
-        Bullet_2;
+        Bullet_2, Boss, Boss_bul;
 
 animation sBullet, sExplosion, ship_explosion, sPlayer, sPlayer_dead, sPlayer_respawn,
-            sBullet_pack, sBomb, sFast_shoot, sRock, sRock_small, sBullet_2;
+            sBullet_pack, sBomb, sFast_shoot, sRock, sRock_small, sBullet_2,
+            Boss_anim, Boss_explo, Boss_bullet;
 
 animation::animation(Texture t_, int x, int y, int w, int h, int Count, float Speed){
     free();
@@ -30,6 +31,10 @@ void animation::Update(){
                          frames[int(Frame)].w, frames[int(Frame)].h);
 }
 
+void animation::Set_Size(int w, int h){
+    t.Set_Size(w, h);
+}
+
 void animation::free(){
     Frame = 0;  speed = 0;
     frames.clear();
@@ -44,8 +49,11 @@ bool animation::isEnd(){
 void Init_Animation(){
     sBullet = animation(Bullet, 0, 0, 32, 64, 16, 0.8);
     sBullet_2 = animation(Bullet_2, 0, 0, 32, 64, 16, 0.8);
+    Boss_bullet = animation(Boss_bul, 0, 0, 32, 64, 16, 0.8);
     sExplosion = animation(Explosion, 0, 0, 256, 256, 48, 0.65);
     ship_explosion = animation(Ship_Explosion, 0, 0, 192, 192, 64, 0.65);
+    Boss_explo = animation(Ship_Explosion, 0, 0, 192, 192, 64, 0.65);
+    Boss_explo.Set_Size(400, 400);
     sPlayer = animation(Space_Ship, 39, 0, 39, 39, 1, 0);
     sPlayer_dead = animation(Space_Ship, 0, 0, 39, 39, 1, 0);
     sPlayer_respawn = animation(Space_Ship, 78, 0, 39, 39, 29, 0.2);
@@ -57,4 +65,6 @@ void Init_Animation(){
     sFast_shoot.t.Set_Size(50, 50);
     sRock = animation(Rock, 0, 0, 48, 48, 16, 0.6);
     sRock_small = animation(small_rock, 0, 0, 64, 64, 16, 0.6);
+    Boss_anim = animation(Boss, 0, 0, 802, 496, 1, 0);
+    Boss_anim.Set_Size(250, 175);
 }

@@ -15,6 +15,8 @@ class animation{
         animation(Texture t_, int x, int y, int w, int h, int Count, float Speed);
         // Count is the number of frames in the animation
 
+        void Set_Size(int w, int h);
+
         void Update();
 
         void free();
