@@ -12,7 +12,8 @@ animation::animation(Texture t_, int x, int y, int w, int h, int Count, float Sp
     free();
     Frame = 0;
     speed = Speed;
-
+    width = w;
+    height = h;
     for(int i = 0 ; i < Count ; i++){
         SDL_Rect rect = {x + i * w, y , w, h};
         frames.push_back(rect);

@@ -46,8 +46,13 @@ void Entity::draw(){
 }
 
 bool is_Collide(Entity *a, Entity *b){
-    return (b->x - a->x)*(b->x - a->x) + (b->y - a->y)*(b->y - a->y)
-    < (a->R + b->R)*(a->R + b->R);
+    if(a->x >= b->x && a->x <= b->x + b->anim.t.on_Screen.w
+       && a->y <  b->y + b->anim.t.on_Screen.h &&
+       a->y > b->y) return true;
+    else if(b->x >= a->x && b->x <= a->x + a->anim.t.on_Screen.w
+       && b->y <  a->y + a->anim.t.on_Screen.h &&
+       b->y > a->y) return true;
+       else return false;
 }
 
 bool shooted(Entity *a){

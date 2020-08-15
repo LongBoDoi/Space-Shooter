@@ -62,7 +62,7 @@
 1588986232 source:d:\codes\space-shooter\objects.cpp
 	"Objects.h"
 
-1588985786 source:d:\codes\space-shooter\resource.rc
+1597508120 source:d:\codes\space-shooter\resource.rc
 
 1589014935 source:d:\codes\space-shooter\sound.cpp
 	"Sound.h"
@@ -81,14 +81,14 @@
 	<iostream>
 	<list>
 
-1592315541 source:d:\codes\space-shooter\source codes\animation.cpp
+1597508874 source:d:\codes\space-shooter\source codes\animation.cpp
 	"Animation.h"
 
-1588949434 d:\codes\space-shooter\source codes\animation.h
+1597508874 d:\codes\space-shooter\source codes\animation.h
 	"Texture.h"
 	<vector>
 
-1590672015 d:\codes\space-shooter\source codes\texture.h
+1597508120 d:\codes\space-shooter\source codes\texture.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -97,24 +97,25 @@
 	<sstream>
 	<vector>
 
-1589432117 source:d:\codes\space-shooter\source codes\enttity.cpp
+1597509859 source:d:\codes\space-shooter\source codes\enttity.cpp
 	"Entity.h"
 	"Objects.h"
 	"Sound.h"
 
-1589249923 d:\codes\space-shooter\source codes\entity.h
+1597508120 d:\codes\space-shooter\source codes\entity.h
 	<iostream>
 	<list>
 	<cmath>
 	"Animation.h"
-
-1588948743 d:\codes\space-shooter\source codes\objects.h
 	"Entity.h"
 
-1589014189 d:\codes\space-shooter\source codes\sound.h
+1597508120 d:\codes\space-shooter\source codes\objects.h
+	"Entity.h"
+
+1597508120 d:\codes\space-shooter\source codes\sound.h
 	<SDL_mixer.h>
 
-1592315858 source:d:\codes\space-shooter\source codes\gameplay.cpp
+1597508735 source:d:\codes\space-shooter\source codes\gameplay.cpp
 	"GamePlay.h"
 	"Texture.h"
 	"Animation.h"
@@ -123,18 +124,18 @@
 	"Sound.h"
 	"MainMenu.h"
 
-1589020274 d:\codes\space-shooter\source codes\gameplay.h
+1597508120 d:\codes\space-shooter\source codes\gameplay.h
 	<list>
 	"MainMenu.h"
 
-1590673967 d:\codes\space-shooter\source codes\mainmenu.h
+1597508120 d:\codes\space-shooter\source codes\mainmenu.h
 	<SDL.h>
 	<iostream>
 	<list>
 	<fstream>
 	<algorithm>
 
-1592314415 source:d:\codes\space-shooter\source codes\main.cpp
+1597508740 source:d:\codes\space-shooter\source codes\main.cpp
 	"Texture.h"
 	"GamePlay.h"
 	"Sound.h"
@@ -142,19 +143,19 @@
 	"MainMenu.h"
 	<ctime>
 
-1590675222 source:d:\codes\space-shooter\source codes\mainmenu.cpp
+1597508758 source:d:\codes\space-shooter\source codes\mainmenu.cpp
 	"MainMenu.h"
 	"Texture.h"
 	"Objects.h"
 	"GamePlay.h"
 
-1592316214 source:d:\codes\space-shooter\source codes\objects.cpp
+1597508746 source:d:\codes\space-shooter\source codes\objects.cpp
 	"Objects.h"
 
-1589014935 source:d:\codes\space-shooter\source codes\sound.cpp
+1597508120 source:d:\codes\space-shooter\source codes\sound.cpp
 	"Sound.h"
 
-1592314795 source:d:\codes\space-shooter\source codes\texture.cpp
+1597508763 source:d:\codes\space-shooter\source codes\texture.cpp
 	"Texture.h"
 	"GamePlay.h"
 

@@ -8,6 +8,7 @@ class animation{
     public:
         float Frame, speed;
         Texture t;
+        int width, height;
         std::vector<SDL_Rect> frames;
 
         animation(){}
